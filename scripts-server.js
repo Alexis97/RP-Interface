@@ -5,7 +5,7 @@
 
 
 var id = 2;
-var shadowRoot = $('#crowd-polygon')[0].shadowRoot;
+var shadowRoot = $('#crowd')[0].shadowRoot;
 var newUser = true;
 
 document.addEventListener('all-crowd-elements-ready', function () {
@@ -45,7 +45,7 @@ function defineLayout() {
 */
 function setInstruction() {
     // Short instruction Part
-    var CoreContainer = $("#crowd-polygon")[0]
+    var CoreContainer = $("#crowd")[0]
     var shortInstruction = document.createElement("short-instructions");
 
     var req1 = new XMLHttpRequest();
@@ -62,7 +62,7 @@ function setInstruction() {
 
     // click instruction button to show the RP instruction by default for new users
     if (newUser == true) {
-        var shadowRoot = $('#crowd-polygon')[0].shadowRoot;
+        var shadowRoot = $('#crowd')[0].shadowRoot;
         var headerButtonsContainer = $(".headerButtonsContainer", shadowRoot);
         var instructButton = $(":button", headerButtonsContainer).get(0);
         instructButton.click();
@@ -118,7 +118,7 @@ function defineLabelButtons() {
 
 
     // label selection part
-    var crowdRoot = $('#crowd-polygon')[0];
+    var crowdRoot = $('#crowd')[0];
     var labelsSection = document.createElement("div");
     labelsSection.classList.add('col-2');
     labelsSection.classList.add('labelsSelection');
@@ -239,7 +239,7 @@ function checkFocus() {
 }
 
 function switchTool() {
-    var curLabelTool = $('#crowd-polygon');
+    var curLabelTool = $('#crowd');
     var newLabelTool = document.createElement('crowd-bounding-box');
     // newLabelTool.id = curLabelTool.attr('id');
     // newLabelTool.name = curLabelTool.attr('name');
@@ -263,7 +263,7 @@ function getCookie() {
 
 
 function tutorial() {
-    var shadowRoot = $('#crowd-polygon')[0].shadowRoot;
+    var shadowRoot = $('#crowd')[0].shadowRoot;
     var headerButtonsContainer = $(".headerButtonsContainer", shadowRoot);
     var instructButton = $(":button", headerButtonsContainer).get(0);
     instructButton.click();
