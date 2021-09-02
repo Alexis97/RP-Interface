@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="title">A Tutorial about Recurring Pattern Discovery</title>
+    <link href="{%static 'bootstrap.min.css'%}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{%static 'main.css'%}">
+    <script src="{%static 'canvas_create.js'%}"></script>
+    <style>
+        audio::-internal-media-controls-download-button {
+            display: none;
+        }
+
+        audio::-webkit-media-controls-enclosure {
+            overflow: hidden;
+        }
+
+        audio::-webkit-media-controls-panel {
+            width: calc(100% + 33px);
+        }
+    </style>
+</head>
+
+<body>
+    <form id="div1" class="form-signin" method="post">
+        {% csrf_token %}
+        <div class="text-center mb-4">
+            <h1 class="h3-mb-3 font-weoght-normal">A Basic Introduction to Recurring Pattern</h1>
+
+            <h2>What is Recurring Pattern?</h2>
+            To answer this basic question, let's firstly take a look at some examples:
+
+            <p><img
+                     src=https://sagemaker-studio-f5iy3bqk9dc.s3.us-east-2.amazonaws.com/user+interface/RP/Instruction/figures/RPs.png>
+            </p>
+
+            <p>
+                These milk bottles, chip bags, paintings, animals and even human beings share quite a lot in common.
+                Specifically, there are a series of **instances** which share similar appearance and geometric
+                properties in each image.
+                A **recurring pattern (RP)** is an ensemble of similar yet not necessarily identical **instances** in an
+                image.
+            </p>
+
+            <p>
+                It is trivial to notice that any RP should contain **two or more instances**, otherwise a single
+                instance can hardly to tell similar or not.
+            </p>
+
+            <h2> Now let's give a definition:</h2>
+            <p>
+                <li>
+                    A <b>Recurring Pattern (RP)</b> is an ensemble of similar yet not necessarily identical
+                    <b>"instances"</b> in an
+                    image.
+                </li>
+                <li>
+                    The term of <b>"instances"</b> refers to a visual area which distinctive features that could be
+                    undoubtedly
+                    grouped or segmented together. Each <b>recurring pattern</b> consists of two or more similar
+                    instances.
+                </li>
+            </p>
+        </div>
+    </form>
+
+    <div id='button'> Move to Next Page!</div>
+    <script>
+        var button = document.getElementById('button');
+        button.onclick = function () {
+            window.location.replace('intro2.html')
+        }
+    </script>
+</body>
