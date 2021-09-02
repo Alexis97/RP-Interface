@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="title">A Tutorial about Recurring Pattern Discovery</title>
+    <link href="{%static 'bootstrap.min.css'%}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{%static 'main.css'%}">
+    <script src="{%static 'canvas_create.js'%}"></script>
+    <style>
+        audio::-internal-media-controls-download-button {
+            display: none;
+        }
+
+        audio::-webkit-media-controls-enclosure {
+            overflow: hidden;
+        }
+
+        audio::-webkit-media-controls-panel {
+            width: calc(100% + 33px);
+        }
+    </style>
+</head>
+
+<body>
+    <form id="div1" class="form-signin" method="post">
+        <div class="text-center mb-4">
+            <h2 class="h3-mb-3 font-weoght-normal">A Quick Review of Recurring Pattern Concepts</h2>
+            <h3> What is a Recurring Pattern?</h3>
+            <p>
+                A <b>Recurring Pattern (RP)</b> is an ensemble of similar yet not necessarily identical
+                <b>"instances"</b> in an image.
+            </p>
+
+            <h3> What is an Instance?</h3>
+            <p>
+                The term of <b>"instances"</b> refers to a visual area which distinctive features that could be
+                undoubtedly grouped or segmented together. Each <b>recurring pattern</b> consists of two or more similar
+                instances.
+            </p>
+
+            <h3> How many Recurring Patterns can an image contains?</h3>
+            <p> An image can contains one dominant recurring pattern, or multiple recurring patterns. It all depends!
+            </p>
+
+            <!-- examples show here -->
+
+            <h3> Q: What if I find more/less Recurring Patterns then the others? Am I wrong? </h3>
+            <p> A: Don't worry! The discovery of recurring pattern is totally based on <b>your own perception</b>! It is
+                totally okay if you treat some instances as recurring patterns but the others do not think so. :)</p>
+
+            <h3> Q: Can I view any arbitrary patterns as a recurring pattern?</h3>
+            <p> A: No. A recurring pattern should contain some kind of similarity that shares among <b>all its
+                    instances</b>. So you cannot just arbitrarily pick patterns as a recurring pattern.</p>
+        </div>
+    </form>
+
+    <div id='button'> Gotcha! Let's have a quick test before we move to the next stage!</div>
+    <script>
+        var button = document.getElementById('button');
+        button.onclick = function () {
+            window.location.replace('quiz.html')
+        }
+    </script>
+</body>
