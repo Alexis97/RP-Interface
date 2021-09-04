@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="title">A Manual about Recurring Pattern Labeling</title>
+    <link href="{%static 'bootstrap.min.css'%}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{%static 'main.css'%}">
+    <script src="{%static 'canvas_create.js'%}"></script>
+    <style>
+        audio::-internal-media-controls-download-button {
+            display: none;
+        }
+
+        audio::-webkit-media-controls-enclosure {
+            overflow: hidden;
+        }
+
+        audio::-webkit-media-controls-panel {
+            width: calc(100% + 33px);
+        }
+    </style>
+</head>
+
+<body>
+    <form id="div1" class="form-signin" method="post">
+        <div class="text-center mb-4">
+            <h1 class="h3-mb-3 font-weoght-normal">Now let's talk about the instructions for labeling</h1>
+            <h2> Amazon Mechanical Turk</h2>
+            <!-- two label results here -->
+
+        </div>
+    </form>
+
+    <div id='button'> Congraz! Now let's talk about how to label they by using a MTurk Interface.</div>
+    <script>
+        var button = document.getElementById('button');
+        button.onclick = function () {
+            window.location.replace('manual.html')
+        }
+    </script>
+</body>
