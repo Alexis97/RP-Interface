@@ -5,9 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title id="title">A Manual about Recurring Pattern Labeling</title>
-    <link href="{%static 'bootstrap.min.css'%}" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="{%static 'main.css'%}">
-    <script src="{%static 'canvas_create.js'%}"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
     <style>
         audio::-internal-media-controls-download-button {
             display: none;
@@ -26,18 +24,75 @@
 <body>
     <form id="div1" class="form-signin" method="post">
         <div class="text-center mb-4">
-            <h1 class="h3-mb-3 font-weoght-normal">Now let's talk about the instructions for labeling</h1>
-            <h2> Amazon Mechanical Turk</h2>
-            <!-- two label results here -->
+            <h1 class="h3-mb-3 font-weoght-normal">Now let's talk about the labeling task!</h1>
+            <h2>The data collection procedure</h2>
+            <p>
+                As a participant, you need to login/create an account on Mechanical Turk will log in to the site. You
+                will select our task from a list of other tasks available for online “workers.” Once selected, you will
+                view
+                the intro/splash screen for the task that explains what should be done. If the you agrees to
+                participate, you will click on a button and begin the task.
+            </p>
+
+            <p>
+                You are required to read the full instruction about recurring pattern labeling task (the page you are
+                currently reading), which contains
+                basic description about what is recurring pattern and how to label them properly.
+            </p>
+
+            <p>
+                Once started the task, you will be shown a random unlabeled image which contains one or multiple
+                recurring patterns.
+            </p>
+
+            <h2>Labeling Instruction</h2>
+            <p>
+                By default, there will be a class label of “<b>Recurring Pattern 1</b>” which indicates the first
+                recurring
+                pattern to be annotated. You are requested to <b>label the contour of each instance</b> in this
+                recurring pattern with <b>the polygon labeling tools on Amazon Turk</b>.
+            </p>
+            <p>
+                They could check the instruction page at any time they want, to make sure that they could label each
+                object of the recurring pattern correctly.
+            </p>
+            <p>
+                After they finish the labeling for one recurring pattern, they could create a new class by click the
+                button of “add” for the next group of recurring pattern they want to label. Then a new class label of
+                “Recurring Pattern X” will be shown to indicates the X order of recurring pattern to be annotated.
+            </p>
+            <p>
+                By doing this repeatedly, you could easily label all the recurring patterns in this image by
+                their intuition in a short period of time. Participants will finally click the button of “submit” to
+                submit the recurring pattern result data to Amazon S3 storage. The result data is composed of the source
+                image reference, recurring pattern class for each object, bounding box information. It contains no
+                private information about the participant him or herself.
+            </p>
+            <p>
+                You could label any number of images depending on how much time you spend on each image, which
+                could be various from images and be various from individuals.
+            </p>
+
+            <h2>A Demo Video for your reference</h2>
+            <center>
+                <video class="demoVideo"
+                       src="https://sagemaker-studio-f5iy3bqk9dc.s3.us-east-2.amazonaws.com/instructions/demo_0702.mp4"
+                       type="video/mp4" controls>
+                    <p>Video not available on current browser.</p>
+                </video>
+            </center>
 
         </div>
     </form>
+    <div class="col-2">
+        <center><button id='button' class='nextButton'> Let's start the labeling!</button></center>
 
-    <div id='button'> Congraz! Now let's talk about how to label they by using a MTurk Interface.</div>
+    </div>
+
     <script>
         var button = document.getElementById('button');
         button.onclick = function () {
-            window.location.replace('manual.html')
+            window.location.replace('https://alexis97.github.io/RP-Demo/')
         }
     </script>
 </body>

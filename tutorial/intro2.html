@@ -5,9 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title id="title">A Tutorial about Recurring Pattern Discovery</title>
-    <link href="{%static 'bootstrap.min.css'%}" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="{%static 'main.css'%}">
-    <script src="{%static 'canvas_create.js'%}"></script>
+    <!-- <link href="{%static 'bootstrap.min.css'%}" rel="stylesheet"> -->
+    <link rel="stylesheet" type="text/css" href="style.css">
     <style>
         audio::-internal-media-controls-download-button {
             display: none;
@@ -26,49 +25,63 @@
 <body>
     <form id="div1" class="form-signin" method="post">
         <div class="text-center mb-4">
-            <h2 class="h3-mb-3 font-weoght-normal">Examples of Recurring Patterns</h2>
+            <h1 class="h3-mb-3 font-weoght-normal">Examples of Recurring Patterns</h1>
             <p> Here are some examples of images containing <b>Recurring Pattern (RP)</b>:</p>
-            <p>
+            <div class="col-1">
                 <img class="img-examples" src='../figures/examples/single_1.jpg'>
-            </p>
-            <p> An example image contains <b>ONE</b> recurring pattern. </p>
+                <p> An example image contains <b>ONE</b> recurring pattern. </p>
+            </div>
 
-            <p>
+
+            <div class="col-1">
                 <img class="img-examples" src='../figures/examples/single_1_ext.png'>
-            </p>
-            <p> An illustration of left image: the image contains one <span style='color:red'> <b>Recurring Pattern</b>
-                </span> with four
-                <span style='color:blue'> <b>instances</b> (each eagle is an instance) </span> (each labeled in
-                blue ployline).
+                <p> An illustration of left image: the image contains one <span style='color:red'> <b>Recurring
+                            Pattern</b>
+                    </span> with four
+                    <span style='color:blue'> <b>instances</b> (each eagle is an instance) </span> (each labeled in
+                    blue ployline).
+                </p>
 
-            <p>
+            </div>
+
+            <div class="col-1">
                 <img class="img-examples" src='../figures/examples/single_2.jpg'>
-                Another example image contains <b>ONE</b> recurring pattern. Notice that the instances could be
-                deformed and scatter, as long as they are similar with each other.
-            </p>
+                <p>
+                    Another example image contains <b>ONE</b> recurring pattern. Notice that the instances could be
+                    deformed and scatter, as long as they are similar with each other.
+                </p>
+            </div>
+
 
             <!-- separate here -->
+            <div class="col-2">
+                <p> Besides <b>single</b> recurring pattern, it is trival to find <b>multiple</b> recurring patterns in
+                    an image. </p>
+                <p> Here are some other examples:</p>
+            </div>
 
-            <p> Besides <b>single</b> recurring pattern, it is trival to find <b>multiple</b> recurring patterns in an
-                image. </p>
-            <p> Here are some other examples:</p>
-            <p>
+
+            <div class="col-1">
                 <img class="img-examples" src='../figures/examples/multi_1.jpg'>
-            </p>
-            <p> An example image contains <b>TWO</b> recurring patterns. Notice that even the image is taken in a
-                <b>projective view</b>, there still exists recurring patterns.
-            </p>
+                <p> An example image contains <b>TWO</b> recurring patterns. Notice that even the image is taken in a
+                    <b>projective view</b>, there still exists recurring patterns.
+                </p>
+            </div>
 
-            <p>
+            <div class="col-1">
                 <img class="img-examples" src='../figures/examples/multi_2.jpg'>
-            </p>
-            <p> An example image contains <b>a lot of</b> recurring patterns. How many recurring patterns can you
-                observe? </p>
+                <p> An example image contains <b>a lot of</b> recurring patterns. How many recurring patterns can you
+                    observe? </p>
+            </div>
+
 
         </div>
     </form>
+    <div class="col-2">
+        <center><button id='button' class='nextButton'> Go to Next Page!</button></center>
 
-    <div id='button'> Go to Next Page!</div>
+    </div>
+
     <script>
         var button = document.getElementById('button');
         button.onclick = function () {

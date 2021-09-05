@@ -5,9 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title id="title">A Tutorial about Recurring Pattern Discovery</title>
-    <link href="{%static 'bootstrap.min.css'%}" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="{%static 'main.css'%}">
-    <script src="{%static 'canvas_create.js'%}"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
     <style>
         audio::-internal-media-controls-download-button {
             display: none;
@@ -55,8 +53,12 @@
                     instances</b>. So you cannot just arbitrarily pick patterns as a recurring pattern.</p>
         </div>
     </form>
+    <div class="col-2">
+        <center><button id='button' class='nextButton'> Gotcha! Let's have a quick test before we move to the next
+                stage!</button></center>
 
-    <div id='button'> Gotcha! Let's have a quick test before we move to the next stage!</div>
+    </div>
+
     <script>
         var button = document.getElementById('button');
         button.onclick = function () {

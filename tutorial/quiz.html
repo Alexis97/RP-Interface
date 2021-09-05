@@ -5,9 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title id="title">A Tutorial about Recurring Pattern Discovery</title>
-    <link href="{%static 'bootstrap.min.css'%}" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="{%static 'main.css'%}">
-    <script src="{%static 'canvas_create.js'%}"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
     <style>
         audio::-internal-media-controls-download-button {
             display: none;
@@ -28,30 +26,78 @@
         <div class="text-center mb-4">
             <h1 class="h3-mb-3 font-weoght-normal">Let's do a test on Recurring Pattern Concepts!</h1>
             <h2> Choose the one better answer for each question below.</h2>
+            <div class="col-2">
+                <h3> Question 1: Recurring pattern is:</h3>
+                <div class="col-1">
+                    <input type="radio" id="ansA" name="q1" value="ansA">
+                    <label for="ansA"> Recurring Pattern is a group of instances, that each of them looks exactly the
+                        same.</label>
+                </div>
+                <div class="col-1">
+                    <input type="radio" id="ansB" name="q1" value="ansB">
+                    <label for="ansB"> Recurring Pattern is a group of instances, that similar yet not necessarily
+                        identical with each other.</label>
+                </div>
 
-            <h3> Question 1: Recurring pattern is:</h3>
-            <p> Answer (A): Recurring Pattern is a group of instances, that each of them looks exactly the same.</p>
-            <p> Answer (B): Recurring Pattern is a group of instances, that similar yet not necessarily identical with
-                each other</p>
+            </div>
 
-            <h3> Question 2: Instance is (under the definition of recurring pattern):</h3>
-            <p> Answer (A): Instance is a visual area which distinctive features that could be
-                undoubtedly grouped or segmented together.</p>
-            <p> Answer (B): Instance is a region of a semantic object, like chairs, birds, etc.</p>
+            <div class="col-2">
+                <h3> Question 2: Instance is (under the definition of recurring pattern):</h3>
+                <div class="col-1">
+                    <input type="radio" id="ansA" name="q2" value="ansA">
+                    <label for="ansA"> Instance is a visual area which distinctive features that could be
+                        undoubtedly grouped or segmented together.</label>
+                </div>
+                <div class="col-1">
+                    <input type="radio" id="ansB" name="q2" value="ansB">
+                    <label for="ansB"> Instance is a region of a semantic object, like chairs, birds, etc.</label>
+                </div>
 
-            <h3> Question 3: Which of the following statement is right?</h3>
-            <p> Answer (A): A Recurring Pattern can contain arbitrary number of instances (1,2,3,...)</p>
-            <p> Answer (B): A Recurring Pattern contains two or more instances.</p>
+            </div>
 
-            <h3> Question 4: Consider the image below, which annotation is more acceptable under our definition
-                (instance labeled in <span style='color:blue'> blue</span> indicates they belong to the same recurring
-                pattern)?</h3>
-            <!-- two label results here -->
+            <div class="col-2">
+                <h3> Question 3: Which of the following statement is right?</h3>
+                <div class="col-1">
+                    <input type="radio" id="ansA" name="q3" value="ansA">
+                    <label for="ansA"> A Recurring Pattern can contain arbitrary number of instances (1,2,3,...)</label>
+                </div>
+                <div class="col-1">
+                    <input type="radio" id="ansB" name="q3" value="ansB">
+                    <label for="ansB"> A Recurring Pattern contains two or more instances.</label>
+                </div>
+
+            </div>
+
+            <div class="col-2">
+                <h3> Question 4: Consider the image below, which annotation is more acceptable under our definition
+                    (instance labeled in <span style='color:blue'> blue</span> indicates they belong to the same
+                    recurring
+                    pattern)?</h3>
+                <div class="col-1">
+                    <img class="img-examples"
+                         src="https://sagemaker-studio-f5iy3bqk9dc.s3.us-east-2.amazonaws.com/instructions/test-1.png">
+                    <input type="radio" id="ansA" name="q4" value="ansA">
+                    <label for="ansA"> Select this annotation (A)</label>
+                </div>
+                <div class="col-1">
+                    <img class="img-examples"
+                         src="https://sagemaker-studio-f5iy3bqk9dc.s3.us-east-2.amazonaws.com/instructions/test-2.png">
+                    <input type="radio" id="ansB" name="q4" value="ansB">
+                    <label for="ansB"> Select this annotation (B)</label>
+                </div>
+
+            </div>
 
         </div>
     </form>
 
-    <div id='button'> Congraz! Now let's talk about how to label they by using a MTurk Interface.</div>
+    <div class="col-2">
+        <center><button id='button' class='nextButton'> Congraz! Now let's talk about how to label they by using a MTurk
+                Interface.</button></center>
+
+    </div>
+
+
     <script>
         var button = document.getElementById('button');
         button.onclick = function () {
