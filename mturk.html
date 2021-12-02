@@ -34,12 +34,12 @@
       </div> -->
 
             <div id="container">
-                <crowd-bounding-box id='crowd-polygon' name="myTexts"
-                                    src="https://sagemaker-studio-f5iy3bqk9dc.s3.us-east-2.amazonaws.com/supermarket+dataset/db1.jpg"
-                                    header="Please add labels of recurring pattern and draw boxes around each OBJECT"
+                <crowd-polygon id='crowd-polygon' name="myTexts"
+                                    src="figures/images/1.jpg"
+                                    header="Please label ONE or MORE recurring patterns. For each Recurring Pattern, please use the polygon tool to draw contours around each Instance"
                                     labels="['Recurring Pattern 1']">
 
-                </crowd-bounding-box>
+                </crowd-polygon>
 
                 <!-- <crowd-polygon id='crowd-polygon' name="myTexts" src="Datasets/supermarket/img/db256.jpg"
                        header="Please add labels of recurring pattern and draw boxes around each OBJECT"
@@ -60,7 +60,7 @@
     </div>
 
     <script
-            src="https://sagemaker-studio-f5iy3bqk9dc.s3.us-east-2.amazonaws.com/user+interface/RP/scripts-ver2.js"></script>
+            src="instruction/scripts-ver2.js"></script>
 
 </body>
 

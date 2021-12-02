@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <!-- <script src="https://assets.crowd.aws/crowd-html-elements.js"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- <link rel="stylesheet" type="text/css" href="https://sagemaker-studio-f5iy3bqk9dc.s3.us-east-2.amazonaws.com/user+interface/RP/style.css"> -->
+    <link rel="stylesheet" type="text/css" href="../style.css">
+    <meta charset="utf-8" />
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" /> -->
+    <title>Recurring Pattern Labeling Instruction</title>
+</head>
+
+<body style="margin: 10px">
+    <div class="col-center">
+        <div class="col-12">
+            <h1 style="text-align:center"> Recurring Pattern </h1>
+            <p>
+                A <b>Recurring Pattern (RP)</b> is an ensemble of similar yet not necessarily identical <b>"instances"</b>
+                in an image.
+            </p>
+
+            <p>
+                The term of <b>"instances"</b> refers to a visual area which distinctive features that could be undoubtedly
+                grouped or segmented together. Each <b>recurring pattern</b> consists of two or more similar instances.
+            </p>
+            <div class="col-6">
+                <img class="img-examples" src='/figures/examples/single_rp.png'>
+                <p style="text-align:center"> An example image contains <b>ONE</b> recurring pattern.</p>
+            </div>
+            <div class="col-6">
+                <img class="img-examples" src='/figures/examples/multi_rp.png'>
+                <p style="text-align:center"> An example image contains <b>Multiple</b> recurring patterns.</p>
+            </div>
+        </div>
+        
+        <hr style="text-align:left;margin-left:0">
+
+        <div class="col-12">
+            <h1 style="text-align:center"> The goal of the study is to find out how humans perceive recurring patterns in real word scenes. </h1>
+            <div class="col-6">
+                <img class="img-examples" src='/figures/images/1.jpg'>
+            </div>
+            <div class="col-6">
+                <img class="img-examples" src='/figures/images/2.jpg'>
+            </div>
+        </div>
+
+        <hr style="text-align:left;margin-left:0">
+
+        <div class="col-12">
+            <h1 style="text-align:center"> Instructions: </h1>
+            <p>
+                On each image: 
+                <ul>
+                    <li>
+                        If you see a group of similar instances as a recurring pattern, please click the <b>Polygon</b> button (hotkey: "p") on the bottom panel to draw the contour of each instance respectively. All the instances belonging to the same recurring pattern should be labeled by the <b>SAME</b> color of polygon.
+                    </li>
+                    <li>
+                        After that, 
+                        <ul>
+                            <li>
+                                If you cannot observe any more recurring pattern, please click the <b>Submit</b> button on the right side of the bottom panel to submit your labeling and go to the next image.
+                            </li>
+                            <li>
+                                If you observe some other recurring pattern, please click the <b>Add</b> button on the top of the right-most panel. After that, you should see a new <b>Recurring Pattern</b> with a different color appears on the right panel. Select this recurring pattern, and do the labeling as you did for the first recurring pattern. Make sure you label the new recurring pattern with a different color of polygon.
+                            </li>
+                            <li>
+                                Do this repeatedly until no more recurring patterns.  If you cannot observe any more recurring pattern, please click the <b>Submit</b> button on the right side of the bottom panel to submit your labeling and go to the next image.
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        You can skip the image if you cannot observe any recurring pattern based on your perception. Please select "Nothing to label" next to the <b>Submit</b> button on the right side of the bottom panel, to skip this image and go to the next one.
+                    </li>
+                </ul>
+            </p>
+            
+        </div>
+
+        <hr style="text-align:left;margin-left:0">
+
+        <div class="col-12">
+            <h1 style="text-align:center">
+                Here shows an illustration of each useful area in the labeling interface.
+            </h1>
+            <img class="img-examples" src='/figures/intro/ui.png'>
+        </div>
+
+        <hr style="text-align:left;margin-left:0">
+
+        <div class="col-12">
+            <h2 style="text-align:center"> For this task, you will need to complete: </h2>
+            <p>
+                <ul>
+                    <!-- <li>
+                        A short survey,
+                    </li> -->
+                    <li>
+                        Labeling recurring pattern for arbitrary number of images. You may stop at any time, but you cannot continuously working for more than 1 hour. You may choose to skip any image as well.
+                    </li>
+                </ul>
+            </p>
+            <center><button id='begin' class='nextButton'> Press to Begin Task </button></center>
+
+            <hr style="text-align:left;margin-left:0">
+            
+            <p>
+                By completing this HIT, you understand that you are agreeing to participate in an experiment designed by researchers at The Pennsylvania State University and that you will remain anonymous. Your participation is voluntary and you may stop the experiment at any time or choose to not answer any specific question. If you have any questions, concerns, or problems regarding the research, please contact Shimian Zhang at <a href="mailto:svz5303@psu.edu">svz5303@psu.edu</a> or Dr. Yanxi Liu at (814) 865-7495. If you have any other questions, concerns, or problems specifically regarding your rights as a research participant, please contact The Pennsylvania State University's Ofiice for Research Protections (ORP) at (814) 865-1775.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        var button = document.getElementById('begin');
+        button.onclick = function () {
+            window.location.replace('mturk.html')
+        }
+    </script>
+
+</body>
+

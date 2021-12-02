@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <script type="module" src="https://cdn.jsdelivr.net/gh/zerodevx/zero-md@1/src/zero-md.min.js"></script>
+
+    <meta charset="utf-8" />
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" /> -->
+    <title>Tutorial</title>
+</head>
+
+<body style="margin: 10px">
+    <!-- <zero-md src="tutorial.md"></zero-md> -->
+    <zero-md
+             src="https://sagemaker-studio-f5iy3bqk9dc.s3.us-east-2.amazonaws.com/user+interface/RP/Instruction/tutorial.md">
+    </zero-md>
+    </zero-md>
+    <div id='button'> Back to Labeling</div>
+    <script>
+        var button = document.getElementById('button');
+        button.onclick = function () {
+            window.history.go(-1)
+        }
+    </script>
+</body>
