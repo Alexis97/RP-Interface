@@ -15,40 +15,48 @@
 <body style="margin: 10px">
     <div>
         <crowd-form id="form">
-
-            <!-- <div id="header" class="col-12" display: inline-block;>
-        <p>
-          Please add labels of recurring pattern and draw polygons around each OBJECT
-        </p>
-      </div> -->
-
-
-            <!-- <div id="rp-instruction" class="col-3" display: inline-block;>
-        <p>
-          Review the image and label each group of <b>recurring patterns</b>.
-        </p>
-        <p>
-          <img class="examples"
-               src="https://sagemaker-studio-f5iy3bqk9dc.s3.us-east-2.amazonaws.com/instructions/test_1_solid.png" />
-        </p>
-      </div> -->
-
             <div id="container">
-                <crowd-polygon id='crowd-polygon' name="myTexts"
+                <crowd-polygon id='annotator' name="myTexts"
                                     src="figures/images/1.jpg"
                                     header="Please label ONE or MORE recurring patterns. For each Recurring Pattern, please use the polygon tool to draw contours around each Instance"
                                     labels="['Recurring Pattern 1']">
 
+                <short-instructions>
+                  <h3 style="text-align:center"> For this task, you will need to complete: </h3>
+                  <p>
+                      <ol>
+                          <li>
+                              Label one or more recurring patterns for an arbitrary number of images.
+                          </li>
+                          <li>
+                              You may choose to skip any image.
+                          </li>
+                          <li>
+                              You may stop at any time. 
+                          </li>
+                          <li>
+                              Your total time limit is 1 hour.
+                          </li>
+                      </ol>
+                  </p>
+            
+                  <br><br><br>
+                  <center>
+                    <crowd-button id="addLabelButton">Add</crowd-button>
+                  
+                    <br><br><br>
+                    <h3>
+                    Manage labels
+                    </h3>
+                    <div id="labelsSection"></div>
+                  </center>
+                  
+                </short-instructions>
+                <full-instructions id="fullInstructions">
+                </full-instructions>
+
                 </crowd-polygon>
 
-                <!-- <crowd-polygon id='crowd-polygon' name="myTexts" src="Datasets/supermarket/img/db256.jpg"
-                       header="Please add labels of recurring pattern and draw boxes around each OBJECT"
-                       labels="['Recurring Pattern 1']">
-        </crowd-polygon> -->
-
-                <!-- <center>
-          <crowd-button id="submitButton">Submit</crowd-button>
-        </center> -->
             </div>
 
             <!-- <div id="label-buttons" class="col-1" display: inline-block;>
@@ -60,7 +68,7 @@
     </div>
 
     <script
-            src="instruction/scripts-ver2.js"></script>
+            src="instruction/scripts.js"></script>
 
 </body>
 

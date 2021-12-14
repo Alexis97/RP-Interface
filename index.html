@@ -17,21 +17,23 @@
         <div class="col-12">
             <h1 style="text-align:center"> Recurring Pattern </h1>
             <p>
-                A <b>Recurring Pattern (RP)</b> is an ensemble of similar yet not necessarily identical <b>"instances"</b>
-                in an image.
+                The term <b>Recurring Pattern (RP)</b> refers to the composition of “things that recur”, and the nonidentical but similar sub-parts that an RP contains as RP <b>instances</b>
+                Each <b>recurring pattern</b> consists of two or more similar instances.
+                <!-- A <b>Recurring Pattern (RP)</b> is an ensemble of similar yet not necessarily identical <b>"instances"</b>
+                in an image. -->
             </p>
 
-            <p>
-                The term of <b>"instances"</b> refers to a visual area which distinctive features that could be undoubtedly
-                grouped or segmented together. Each <b>recurring pattern</b> consists of two or more similar instances.
-            </p>
+            <!-- <p>
+                The term <b>"instance"</b> refers to a visual area which distinctive features that could be undoubtedly grouped or segmented together.
+                Each <b>recurring pattern</b> consists of two or more similar instances.
+            </p> -->
             <div class="col-6">
                 <img class="img-examples" src='figures/examples/single_rp.png'>
                 <p style="text-align:center"> An example image contains <b>ONE</b> recurring pattern.</p>
             </div>
             <div class="col-6">
                 <img class="img-examples" src='figures/examples/multi_rp.png'>
-                <p style="text-align:center"> An example image contains <b>Multiple</b> recurring patterns.</p>
+                <p style="text-align:center"> An example image contains <b>More than One</b> recurring patterns.</p>
             </div>
         </div>
         
@@ -53,7 +55,27 @@
             <h1 style="text-align:center"> Instructions: </h1>
             <p>
                 On each image: 
-                <ul>
+                <ol>
+                    <li>
+                        You can skip the image if you cannot observe any recurring pattern based on your perception. Please select "Nothing to label" next to the <b>Submit</b> button on the right side of the bottom panel, to skip this image and go to the next one.
+                    </li>
+                    <li>
+                        If you see an RP, click the <b>Polygon</b> button on the bottom panel to draw the contour polygon of each instance of an RP in the SAME color.
+                    </li>
+                    <li>
+                        <p></p>
+                        <ul>
+                            <li>
+                                If you observe another recurring pattern, please click the <b>Add</b> button on the top of the right-most panel. Go to step (2).  The activated RP for labeling will be highlighted on the right panel. Make sure the new RP is activated. You can manually click the corresponding RP button to activate it. 
+                            </li>
+                            <li>
+                                If you cannot observe any more RP, please click the <b>Submit</b> button on the right side of the bottom panel to submit your labeling and go to the next image.
+                            </li>
+                        </ul>
+
+                    </li>
+                </ol>
+                <!-- <ul>
                     <li>
                         If you see a group of similar instances as a recurring pattern, please click the <b>Polygon</b> button (hotkey: "p") on the bottom panel to draw the contour of each instance respectively. All the instances belonging to the same recurring pattern should be labeled by the <b>SAME</b> color of polygon.
                     </li>
@@ -74,7 +96,7 @@
                     <li>
                         You can skip the image if you cannot observe any recurring pattern based on your perception. Please select "Nothing to label" next to the <b>Submit</b> button on the right side of the bottom panel, to skip this image and go to the next one.
                     </li>
-                </ul>
+                </ul> -->
             </p>
             
         </div>
@@ -83,7 +105,7 @@
 
         <div class="col-12">
             <h1 style="text-align:center">
-                Here shows an illustration of each useful area in the labeling interface.
+                An illustration of the interface.
             </h1>
             <img class="img-examples" src='figures/intro/ui.png'>
         </div>
@@ -93,14 +115,20 @@
         <div class="col-12">
             <h2 style="text-align:center"> For this task, you will need to complete: </h2>
             <p>
-                <ul>
-                    <!-- <li>
-                        A short survey,
-                    </li> -->
+                <ol>
                     <li>
-                        Labeling recurring pattern for arbitrary number of images. You may stop at any time, but you cannot continuously working for more than 1 hour. You may choose to skip any image as well.
+                        Label one or more recurring patterns for an arbitrary number of images.
                     </li>
-                </ul>
+                    <li>
+                        You may choose to skip any image.
+                    </li>
+                    <li>
+                        You may stop at any time. 
+                    </li>
+                    <li>
+                        Your total time limit is 1 hour.
+                    </li>
+                </ol>
             </p>
             <center><button id='begin' class='nextButton'> Press to Begin Task </button></center>
 

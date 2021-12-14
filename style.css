@@ -3,9 +3,13 @@
 }
 
 html, body {
-  max-width: 100%;
-  overflow-x: hidden;
+  width: 99%;
+  /* overflow-x: hidden; */
+  margin: 0% 0.5%; 
+  /* height: 90%;  */
+  /* overflow: hidden */
 }
+
 
 .header {
   border: 1px solid red;
