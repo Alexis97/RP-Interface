@@ -16,44 +16,66 @@
     <div>
         <crowd-form id="form">
             <div id="container">
-                <crowd-polygon id='annotator' name="myTexts"
-                                    src="figures/images/1.jpg"
-                                    header="Please label ONE or MORE recurring patterns. For each Recurring Pattern, please use the polygon tool to draw contours around each Instance"
-                                    labels="['Recurring Pattern 1']">
+                <crowd-polygon id='annotator' name="myTexts" src="figures/images/1.jpg"
+                               header="Please label ONE or MORE recurring patterns. For each Recurring Pattern, please use the polygon tool to draw contours around each Instance"
+                               labels="['Recurring Pattern 1']">
 
-                <short-instructions>
-                  <h3 style="text-align:center"> For this task, you will need to complete: </h3>
-                  <p>
-                      <ol>
-                          <li>
-                              Label one or more recurring patterns for an arbitrary number of images.
-                          </li>
-                          <li>
-                              You may choose to skip any image.
-                          </li>
-                          <li>
-                              You may stop at any time. 
-                          </li>
-                          <li>
-                              Your total time limit is 1 hour.
-                          </li>
-                      </ol>
-                  </p>
-            
-                  <br><br><br>
-                  <center>
-                    <crowd-button id="addLabelButton">Add</crowd-button>
-                  
-                    <br><br><br>
-                    <h3>
-                    Manage labels
-                    </h3>
-                    <div id="labelsSection"></div>
-                  </center>
-                  
-                </short-instructions>
-                <full-instructions id="fullInstructions">
-                </full-instructions>
+                    <short-instructions>
+                        <h3 style="text-align:center"> For this task, you will need to complete: </h3>
+                        <p>
+                        <ol>
+                            <li>
+                                Label one or more recurring patterns for an arbitrary number of images.
+                            </li>
+                            <li>
+                                You may choose to skip any image.
+                            </li>
+                            <li>
+                                You may stop at any time.
+                            </li>
+                            <li>
+                                Your total time limit is 1 hour.
+                            </li>
+                        </ol>
+                        </p>
+
+                        <br><br><br>
+                        <div class="col-12">
+                            <h3>
+                                Manage Recurring Patterns
+                            </h3>
+                            <div class="col-12">
+                                <crowd-button class="RPButton" id="addRP">Add an RP</crowd-button>
+                            </div>
+                            <div class="col-12">
+                                <crowd-button class="RPButton" id="deleteRP">Delete an RP</crowd-button>
+                            </div>
+                        </div>
+
+                        <!-- <br><br><br>
+                        <div class="col-12">
+                            <h3>
+                                Manage Recurring Pattern Instances
+                            </h3>
+                            <div class="col-12">
+                                <crowd-button class="InstButton" id="addInst">Add an Instance</crowd-button>
+                            </div>
+                            <div class="col-12">
+                                <crowd-button class="InstButton" id="deleteInst">Delete an Instance</crowd-button>
+                            </div>
+                        </div> -->
+
+                        
+                        <!-- <div>    
+                            <h3>
+                                <center>Manage labels</center>   
+                            </h3>
+                            <div id="labelsSection"></div>
+                        </div> -->
+
+                    </short-instructions>
+                    <full-instructions id="fullInstructions">
+                    </full-instructions>
 
                 </crowd-polygon>
 
@@ -67,8 +89,7 @@
         </crowd-form>
     </div>
 
-    <script
-            src="instruction/scripts.js"></script>
+    <script src="instruction/scripts.js"></script>
 
 </body>
 

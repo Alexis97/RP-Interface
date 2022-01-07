@@ -25,14 +25,14 @@ document.addEventListener('all-crowd-elements-ready', function () {
     ActivateInstruction();
     DisableShortCut();
 
-    PopulateLabelsSection(labelsSection, annotator)
+    // PopulateLabelsSection(labelsSection, annotator);
 
     $("crowd-form").submit(function () {
         console.log("Thank you for your comment!");
         console.log($("crowd-tool")[0].value);
     });
 
-
+    ListenLabelButton();
 });
 
 function alertFunc() {
@@ -93,6 +93,20 @@ function DisableShortCut()
 }
 
 /*
+* Listen to Label Button
+*/
+function ListenLabelButton()
+{
+    var shadowRoot = GetShadowRoot();
+    var labelPane = $(".label-pane-content", shadowRoot);
+    console.log(labelPane);
+    $(".label-pane-content", shadowRoot).on('click', 'label-button selected', function(){
+        console.log("Click Label!");
+    });
+
+}
+
+/*
 * Design the RP Buttons
 */
 function DesignRPButtons(container) {
@@ -100,16 +114,22 @@ function DesignRPButtons(container) {
     var dummyButton = document.createElement("crowd-button");     // a dummy button to avoid warnings 
     dummyButton.style.display = "none";
 
-    var addLabelButton = document.createElement("crowd-button");
-    addLabelButton.id = "addButton";
-    addLabelButton.innerHTML = "Add";
-    addLabelButton.classList.add('label-button');
+    var addRPButton = document.createElement("crowd-button");
+    addRPButton.id = "addButton";
+    addRPButton.innerHTML = "Add an RP";
+    addRPButton.classList.add('label-button');
+
+    var deleteRPButton = document.createElement("crowd-button");
+    deleteRPButton.id = "addButton";
+    deleteRPButton.innerHTML = "Delete an RP";
+    deleteRPButton.classList.add('label-button');
 
     container.append(dummyButton);
-    container.append(addLabelButton);
+    container.append(addRPButton);
+    container.append(deleteRPButton);
 
     // bind click functions
-    addLabelButton.onclick = function () {
+    addRPButton.onclick = function () {
         id = AddLabel(labelsSection, crowdRoot, id);
     };
 }
@@ -117,40 +137,56 @@ function DesignRPButtons(container) {
 /*
 * Functions to add a label
 */
-addLabelButton.onclick = function () {
-    id = AddLabel(labelsSection, annotator, id);
+addRP.onclick = function () {
+    id = AddLabel(annotator, id);
 };
 
-function AddLabel(labelsSection, crowdRoot, id) {
+function AddLabel(crowdRoot, id) {
     console.log("Click Add Button!");
     crowdRoot.labels = crowdRoot.labels.concat(['Recurring Pattern ' + id]);
     id += 1;
 
     // for category focus checking
     // $('div.label-button', shadowRoot).click(alertFunc());
-    PopulateLabelsSection(labelsSection, crowdRoot)
+    // PopulateLabelsSection(labelsSection, crowdRoot)
     return id;
 }
 
 /*
 * Function to remove a label
 */
-function removeLabel(crowdRoot, id) {
+deleteRP.onclick = function () {
+    DeleteLabel(annotator);
+};
+
+function DeleteLabel(crowdRoot) {
     console.log("Click Remove Button!");
-    if (id - 1 < 1) return;
-    label = 'Recurring Pattern ' + (id - 1).toString()
-    //console.log(label)
-    crowdRoot.labels = crowdRoot.labels.filter(function (l) {
-        return l !== label;
-    });
 
-    // crowdRoot.value = crowdRoot.value.filter(function (l) {
-    //     return l['label'] !== label;
-    // });
+    var labels = $(".label-button", GetShadowRoot());
+    var label_idx = -1;
+    for (let i=0;i<labels.length;i++)
+    {
+        var classList = labels.get(i).classList;
+        if (classList.length>1 && classList[1] == "selected") 
+        {
+            var temp = crowdRoot.labels;
+            temp.splice(i,1); 
+            console.log(temp);
+            crowdRoot.labels = [];
+            for (let j=0;j<temp.length;j++)
+            {
+                crowdRoot.labels = crowdRoot.labels.concat(temp[j]);
+            }
+            // console.log(crowdRoot.labels);
+        }
+    }
 
-    id -= 1;
-    return id;
+    crowdRoot.labels = crowdRoot.labels;
 }
+
+addInst.onclick= function () {
+    
+};
 
 function recoverLabel(crowdRoot, id) {
     console.log("Click Recover Button!");
@@ -164,20 +200,20 @@ function recoverLabel(crowdRoot, id) {
     return id;
 }
 
-function PopulateLabelsSection(labelsSection, crowdRoot) {
-    labelsSection.innerHTML = '';
-    crowdRoot.labels.forEach(function (label) {
-        const labelContainer = document.createElement('div');
-        labelContainer.innerHTML = label + ' <a href="javascript:void(0)">(Delete)</a>';
-        labelContainer.querySelector('a').onclick = function () {
-            crowdRoot.labels = crowdRoot.labels.filter(function (l) {
-                return l !== label;
-            });
-            PopulateLabelsSection(labelsSection, crowdRoot);
-        };
-        labelsSection.appendChild(labelContainer);
-    });
-}
+// function PopulateLabelsSection(labelsSection, crowdRoot) {
+//     labelsSection.innerHTML = '';
+//     crowdRoot.labels.forEach(function (label) {
+//         const labelContainer = document.createElement('div');
+//         labelContainer.innerHTML = label + ' <a href="javascript:void(0)">(Delete)</a>';
+//         labelContainer.querySelector('a').onclick = function () {
+//             crowdRoot.labels = crowdRoot.labels.filter(function (l) {
+//                 return l !== label;
+//             });
+//             PopulateLabelsSection(labelsSection, crowdRoot);
+//         };
+//         labelsSection.appendChild(labelContainer);
+//     });
+// }
 
 function checkFocus() {
     var focus = document.activeElement;
