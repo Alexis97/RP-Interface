@@ -185,7 +185,13 @@ function DeleteLabel(crowdRoot) {
 }
 
 addInst.onclick= function () {
-    
+    var polyButton = $("button#polygon", GetShadowRoot());
+    polyButton.trigger( "click" );
+};
+
+deleteInst.onclick= function () {
+    var deleteButton = $("button#delete", GetShadowRoot());
+    deleteButton.trigger( "click" );
 };
 
 function recoverLabel(crowdRoot, id) {
