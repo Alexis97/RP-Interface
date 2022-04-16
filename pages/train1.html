@@ -20,19 +20,18 @@
 
             <div class="page-header">
                     <!-- <h1>Label one symmetry per image.</h1> -->
-                    <h3 class="text-center"><b>In order of their prominence to you, label EVERY SYMMETRY you PERCEIVE on each image.</b></h3>
-                    <h3 class="text-center"><b>Skipping Images</b> is OK if and only if no perceived symmetries are found. However, skipped images are not counted as labeled images</h3>
+                    <h3 class="text-center"><b>Label one symmetry per image.</b></h3>
                 <p class="lead"></p>
             </div>
 
             <div class="row">
                 <div class="col-md-5 label-panel">
                     <!-- <p class="lead">FIRST, CHOOSE WHICH TYPE OF SYMMETRY TO BE LABELED!</p> -->
-                    <p class="lead">CHOOSE WHICH TYPE OF SYMMETRY TO BE LABELED!</p>
+                    <p class="lead">FIRST, CHOOSE WHICH TYPE OF SYMMETRY TO BE LABELED!</p>
 
                     <ul class="list-group" id="option-left">
                         <a class="list-group-item" id="rot">Rotation center (one point/click)</a>
-                        <a class="list-group-item" id="ref">Reflection axis (two end points/clicks)</a>
+                        <!-- <a class="list-group-item" id="ref">Reflection axis (two end points/clicks)</a> -->
                     </ul>
 
                     <img class="bk-image" src = ""> </img>
@@ -52,22 +51,16 @@
                     <div class="vertical-center">
                         <div class="page-header">
                             <p class="text-center">
-                                    <button type="button" class="btn btn-lg btn-primary" id="submit">Next Page</button>
+                                    <button type="button" class="btn btn-lg btn-primary" id="next-train">Next Page</button>
                             </p>
-                            <p class="text-center">
-                                Skip Both Images
-                            </p>
-                            <!-- <p class="text-center">
-                                    <button type="button" class="btn btn-warning skip" id="skip">Skip Both
-                                        Images</button>
-                            </p> -->
                         </div>
                         <div id="info-board">
-                            <p class="text-center" id = "skipped"> Skipped: 0 </p>
+                            <!-- <p class="text-center" id = "skipped"> Skipped: 0 </p>
                             <p class="text-center" id = "total"> (Max:100) </p>
 
                             <p class="text-center" id = "labeled"> Labeled: 0 </p>
-                            <p class="text-center" id = "total"> (Max:100) </p>
+                            <p class="text-center" id = "total"> (Max:100) </p> -->
+                            <p class="text-center"> Minimum Labeled </p>
                         </div>
                     </div>
 
@@ -77,7 +70,7 @@
                     <p class="lead">FIRST, CHOOSE WHICH TYPE OF SYMMETRY TO BE LABELED!</p>
 
                     <ul class="list-group" id="option-right">
-                        <a class="list-group-item" id="rot">Rotation center (one point/click)</a>
+                        <!-- <a class="list-group-item" id="rot">Rotation center (one point/click)</a> -->
                         <a class="list-group-item" id="ref">Reflection axis (two end points/clicks)</a>
                     </ul>
 
@@ -103,27 +96,15 @@
 
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-
     <script>
         var img_urls = [
             "../figures/demo label images/new_label_000.jpg",
             "../figures/demo label images/new_label_001.jpg",
-            "../figures/demo label images/new_label_002.jpg",
-            "../figures/demo label images/new_label_003.jpg",
-            "../figures/demo label images/new_label_004.jpg",
-            "../figures/demo label images/new_label_005.jpg",
-            "../figures/demo label images/new_label_006.jpg",
-            "../figures/demo label images/new_label_007.jpg",
-            "../figures/demo label images/new_label_008.jpg",
-            "../figures/demo label images/new_label_009.jpg",
-            "../figures/demo label images/new_label_010.jpg",
-            "../figures/demo label images/new_label_011.jpg",
         ];
     </script>
 
     <script src="label.js"></script>
-
-    <!-- <script src="https://assets.crowd.aws/crowd-html-elements.js"></script> -->
+    <script src="train.js"></script>
 </body>
 
 </html>

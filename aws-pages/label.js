@@ -35,6 +35,11 @@ $(document).ready(function () {
     //     console.log(img_urls);
     // });
 
+    // * read the image url
+    img_url = $("#img-url").text();
+    img_urls = [img_url];
+    console.log(img_urls);
+
     num_total = img_urls.length;
 
     // * setup list group active click events
@@ -123,13 +128,18 @@ $(document).ready(function () {
 
     // * setup submit button
     $(".btn#submit").click(function () {
-        submit();
+        $("crowd-form")[0].submit();
     });
 
     // * setup panel div arrangement
     var panel_height = $(".label-panel").height()
     $(".submit-panel").height(panel_height);
     updateInfoBoard($("#info-board"));
+
+    // * setup crowd-form submit 
+    $("crowd-form")[0].onsubmit = function() {
+        submit();
+    };
 });
 
 function loadImgURLs(json_url) {
@@ -160,13 +170,13 @@ function setupCanvas(canvas, img) {
     var hRatio = c_width / img.naturalWidth;
     var vRatio = c_height / img.naturalHeight;
     var ratio = Math.min(hRatio, vRatio);
-    // console.log(hRatio, vRatio, ratio);
+    console.log(ratio);
 
     ratio = hRatio;
 
     canvas.width = img.naturalWidth * ratio;
     canvas.height = img.naturalHeight * ratio;
-    // console.log(canvas.width, canvas.height);
+    console.log(canvas.width, canvas.height);
 
     img.width = canvas.getBoundingClientRect().width;
     img.height = canvas.getBoundingClientRect().height;
@@ -278,64 +288,38 @@ function updateInfoBoard(infoboard) {
 }
 
 function submit() {
-    // * submit the annotations, and swap to the next pair of images
+    // * submit the annotations for AWS Crowd
 
-    // TODO: submit the annotation
     console.log("Submit Annotations:");
-    annos.forEach((anno, id) => {
-        console.log("\tImage " + id + " Rotation:");
-        anno["Rotation"].forEach(element => {
-            console.log(element);
-        });
-        console.log("\tImage " + id + " Reflection:");
-        anno["Reflection"].forEach(element => {
-            console.log(element);
-        });
+    // annos.forEach((anno, id) => {
+    //     console.log("\tImage " + id + " Rotation:");
+    //     anno["Rotation"].forEach(element => {
+    //         console.log(element);
+    //     });
+    //     console.log("\tImage " + id + " Reflection:");
+    //     anno["Reflection"].forEach(element => {
+    //         console.log(element);
+    //     });
+    // });
+
+    $("#form").remove("input");
+    var anno = annos[0];
+    anno["Rotation"].forEach((element,index) => {
+        $("#form").append(`<input name="Rotation ${index}" id="Rotation" type="hidden">`);
+        $("input#Rotation")[index].value = element;
+        console.log("\tRot" + index + ":" + $("input#Rotation")[index].value);
     });
 
+    anno["Reflection"].forEach((element,index) => {
+        $("#form").append(`<input name="Reflection ${index}" id="Reflection" type="hidden">`);
+        $("input#Reflection")[index].value = element;
+        console.log("\tRef: " + index + ":" + $("input#Reflection")[index].value);
+    });
     
-
-    // var skipFlag = true;
-    annos.forEach((anno) => {
-        if (anno["Rotation"].length != 0 || anno["Reflection"].length != 0) num_labeled += 1;
-        else num_skipped += 1;
-        // if (anno["Rotation"].length != 0 || anno["Reflection"].length != 0) skipFlag = false;
-    });
-    // if (skipFlag)
-    //     num_skipped += 1;
-    // else 
-    //     num_labeled += 1;
-    updateInfoBoard($("#info-board"));
-
-    // reset the panel
-    $(".labeling-tool").each((index, element) => {
-        clearAll(element);
-
-        annos[index] = { "Rotation": [], "Reflection": [] };
-        sym_types[index] = ('None');
-        prev_XY[index] = ([-1, -1]);
-    });
-
-    var active_options = $(".list-group .list-group-item.active");
-    active_options.each((index, element) => {
-        $(element).removeClass("active");
-    });
-
-    // check if the task is ended (local only ?)
-    if (img_id >= img_urls.length) {
-        console.log("Task is end!");
-        alert("Congrats!");
-        // * Local demo
-        window.location = "end.html?num_labeled=" +num_labeled;
-        // window.location.href = "end.html?num_labeled=" +num_labeled;
-    }
-
-    // swap to the next pair of images
-    $(".labeling-tool").each((index, element) => {
-        $(".bk-image")[index].src = img_urls[img_id];
-        img_id += 1;
-    });
-
-    
+    // $("input#Rotation")[0].value = annos[0]["Rotation"];
+    // $("input#Reflection")[0].value = annos[0]["Reflection"];
+    // // console.log($("#annotations")[0].value);
+    // $("#form").append(`<input name="New" id="New" type="hidden">`);
+    // $("input#New")[0].value = "New";
 }
 

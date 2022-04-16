@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Symmetry Labeling</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <!-- <link rel="stylesheet" href="label.css"> -->
+    <link rel="stylesheet" href="https://sagemaker-studio-f5iy3bqk9dc.s3.us-east-2.amazonaws.com/user+interface/Sym/label.css">
+</head>
+
+<body>
+
+    <body>
+        <div class="container">
+
+            <div class="page-header">
+                <!-- <h1>Label one symmetry per image.</h1> -->
+                <h3 class="text-center"><b>In order of their prominence to you, label EVERY SYMMETRY you PERCEIVE on
+                        each image.</b></h3>
+                <h3 class="text-center"><b>Skipping Images</b> is OK if and only if no perceived symmetries are found.
+                    However, skipped images are not counted as labeled images</h3>
+                <p class="lead"></p>
+            </div>
+
+            <div class="row">
+                <div class="col-md-2">
+                </div>
+                <div class="col-md-8 label-panel">
+                    <crowd-form id="form">
+                        <!-- <p id="img-url" style="display: none"> {{ task.input.source-ref | grant_read_access }} </p> -->
+                        <!-- <input name="Rotation" id="Rotation" type="hidden">
+                        <input name="Reflection" id="Reflection" type="hidden"> -->
+
+                        <div id="img-url" style="display: none"> {{ task.input.source-ref | grant_read_access }} </div>
+
+
+                        <!-- <p class="lead">FIRST, CHOOSE WHICH TYPE OF SYMMETRY TO BE LABELED!</p> -->
+                        <p class="lead">CHOOSE WHICH TYPE OF SYMMETRY TO BE LABELED!</p>
+
+                        <ul class="list-group" id="option-left">
+                            <a class="list-group-item" id="rot">Rotation center (one point/click)</a>
+                            <a class="list-group-item" id="ref">Reflection axis (two end points/clicks)</a>
+                        </ul>
+
+                        <img class="bk-image" src=""> </img>
+                        <canvas class="labeling-tool" id="canvas-left">
+                            [Left Image Here]
+                        </canvas>
+
+                        <p class="lead">
+                            <p class="text-center">
+                                <button type="button" class="btn btn-default clear" id="left">Clear Last Label</button>
+                            </p>
+    
+                            <p class="text-center">
+                                <button type="button" class="btn btn-lg btn-primary" id="submit">Submit</button>
+                            </p>
+    
+                            <!-- Prevent crowd-form from creating its own button -->
+                            <crowd-button form-action="submit" style="display: none;"></crowd-button>
+                        </p>
+                        
+                    </crowd-form>
+                </div>
+                <div class="col-md-2">
+                </div>
+            </div>
+
+        </div>
+    </body>
+
+    <script src="https://fastly.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+    <script src="label.js"></script>
+
+    <!-- <script src="https://sagemaker-studio-f5iy3bqk9dc.s3.us-east-2.amazonaws.com/user+interface/Sym/label.js"></script> -->
+
+    <script src="https://assets.crowd.aws/crowd-html-elements.js"></script>
+</body>
+
+</html>
