@@ -3,20 +3,20 @@
 */
 // var img_urls = require("./demo_img_urls.json");
 // var img_urls = [];
-// var img_urls = [
-//     "../figures/demo label images/new_label_000.jpg",
-//     "../figures/demo label images/new_label_001.jpg",
-//     "../figures/demo label images/new_label_002.jpg",
-//     "../figures/demo label images/new_label_003.jpg",
-//     "../figures/demo label images/new_label_004.jpg",
-//     "../figures/demo label images/new_label_005.jpg",
-//     "../figures/demo label images/new_label_006.jpg",
-//     "../figures/demo label images/new_label_007.jpg",
-//     "../figures/demo label images/new_label_008.jpg",
-//     "../figures/demo label images/new_label_009.jpg",
-//     "../figures/demo label images/new_label_010.jpg",
-//     "../figures/demo label images/new_label_011.jpg",
-// ];
+var img_urls = [
+    "../figures/demo label images/new_label_000.jpg",
+    "../figures/demo label images/new_label_001.jpg",
+    "../figures/demo label images/new_label_002.jpg",
+    "../figures/demo label images/new_label_003.jpg",
+    "../figures/demo label images/new_label_004.jpg",
+    "../figures/demo label images/new_label_005.jpg",
+    "../figures/demo label images/new_label_006.jpg",
+    "../figures/demo label images/new_label_007.jpg",
+    "../figures/demo label images/new_label_008.jpg",
+    "../figures/demo label images/new_label_009.jpg",
+    "../figures/demo label images/new_label_010.jpg",
+    "../figures/demo label images/new_label_011.jpg",
+];
 var img_id = 0;
 var img_size = [];
 var annos = [];
@@ -35,9 +35,43 @@ $(document).ready(function () {
     //     console.log(img_urls);
     // });
 
+    // * setup updates to the arrangement
+    // $("canvas.labeling-tool").replaceWith(``);
+    // $("img.bk-image").replaceWith(
+    //     `
+    //     <div>
+    //         <img class="bk-image" src=""> </img>
+    //         <canvas class="labeling-tool" id="canvas-left">
+    //             [Left Image Here]
+    //         </canvas>
+    //     </div>
+    //     `
+    // );
+    
+
+    var label_panel = $(".label-panel");
+    var button_bar = $(label_panel.children(".text-center")[1]);
+    button_bar.replaceWith(
+        `
+        <div class="row">
+            <div class="col-md-6">
+                <p class="text-center">
+                <button type="button" class="btn btn-lg btn-primary" id="skip">Skip the Image</button>
+                </p>
+            </div>
+            <div class="col-md-6">
+                <p class="text-center">
+                <button type="button" class="btn btn-lg btn-success" id="submit">Submit the Annotations</button>
+                </p>
+            </div>
+        </div>
+        `);
+    
+
     // * read the image url
-    img_url = $("#img-url").text();
-    img_urls = [img_url];
+    var img_url = $("#img-url").text();
+    if (img_url != " {{ task.input.source-ref | grant_read_access }} ")
+        img_urls = [img_url];
     console.log(img_urls);
 
     num_total = img_urls.length;
@@ -60,6 +94,7 @@ $(document).ready(function () {
             sym_types[id] = "ref";
     });
 
+    
 
     // * setup image & canvas
     $(".labeling-tool").each((index, element) => {
@@ -131,15 +166,24 @@ $(document).ready(function () {
         $("crowd-form")[0].submit();
     });
 
+    // * setup skip button
+    $(".btn#skip").click(function () {
+        annos = [];
+        $("crowd-form")[0].submit();
+    });
+
     // * setup panel div arrangement
     var panel_height = $(".label-panel").height()
     $(".submit-panel").height(panel_height);
     updateInfoBoard($("#info-board"));
 
     // * setup crowd-form submit 
-    $("crowd-form")[0].onsubmit = function() {
+    $("crowd-form")[0].onsubmit = function () {
         submit();
     };
+
+    
+    // $(label_panel.children(".text-center")[1]).replaceWith(`<button type="button" class="btn btn-lg btn-primary" id="skip">Skip</button>`);
 });
 
 function loadImgURLs(json_url) {
@@ -160,32 +204,37 @@ function getCanvasId(canvas) {
 }
 
 function setupCanvas(canvas, img) {
+    // * compute the suitable canvas size
+    // get the height of all elements below the canvas
+    var container = $(canvas).parent()[0];
+    var below_height = 0;
+    $(canvas).parent().nextAll().each((i, e) => {
+        below_height += e.offsetHeight;
+    });
+    // console.log(below_height);
 
-    // * setup canvas size
-    var c_width = canvas.getBoundingClientRect().width;
-    var c_height = canvas.getBoundingClientRect().height;
+    var max_c_height = window.innerHeight - container.getBoundingClientRect().top - below_height - 90;
 
-    // * get the image size and re-arrange bk image and ft canvas
-    // var ratio = c_width / img.naturalWidth;
-    var hRatio = c_width / img.naturalWidth;
-    var vRatio = c_height / img.naturalHeight;
-    var ratio = Math.min(hRatio, vRatio);
-    console.log(ratio);
-
-    ratio = hRatio;
+    var ratio = max_c_height / img.naturalHeight;
 
     canvas.width = img.naturalWidth * ratio;
     canvas.height = img.naturalHeight * ratio;
-    console.log(canvas.width, canvas.height);
+    // console.log(canvas.width, canvas.height);
 
-    img.width = canvas.getBoundingClientRect().width;
-    img.height = canvas.getBoundingClientRect().height;
-    $(img).css({ "position": "absolute", "visibility": "visible", "z-index": -1 });
+    $(img).css({ 
+        "position": "absolute", 
+        "visibility": "visible", "z-index": -1 ,
+        "left": `50%`,
+        "margin-left": `-${canvas.width / 2}px`
+    });
 
+    img.width = canvas.width;
+    img.height = canvas.height;
+    // console.log(img.width, img.height);
 }
 
 
-function drawPoint(canvas, x, y, color = 'red', board_color = 'green',  radius = 4, lineWidth = 2, boarder = 1) {
+function drawPoint(canvas, x, y, color = 'red', board_color = 'green', radius = 4, lineWidth = 2, boarder = 1) {
     // * draw a point on the canvas
     x *= canvas.width;
     y *= canvas.height;
@@ -304,18 +353,18 @@ function submit() {
 
     $("#form").remove("input");
     var anno = annos[0];
-    anno["Rotation"].forEach((element,index) => {
+    anno["Rotation"].forEach((element, index) => {
         $("#form").append(`<input name="Rotation ${index}" id="Rotation" type="hidden">`);
         $("input#Rotation")[index].value = element;
         console.log("\tRot" + index + ":" + $("input#Rotation")[index].value);
     });
 
-    anno["Reflection"].forEach((element,index) => {
+    anno["Reflection"].forEach((element, index) => {
         $("#form").append(`<input name="Reflection ${index}" id="Reflection" type="hidden">`);
         $("input#Reflection")[index].value = element;
         console.log("\tRef: " + index + ":" + $("input#Reflection")[index].value);
     });
-    
+
     // $("input#Rotation")[0].value = annos[0]["Rotation"];
     // $("input#Reflection")[0].value = annos[0]["Reflection"];
     // // console.log($("#annotations")[0].value);
