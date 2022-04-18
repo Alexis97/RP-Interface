@@ -36,6 +36,19 @@ $(document).ready(function () {
     // });
 
     // * setup updates to the arrangement
+    // $("div.container").append(
+    $("body").append(
+    `
+    <div  class="thumbnail">
+        <h3 class="text-center">
+            <a href="https://alexis97.github.io/RP-Interface/pages/begin.html" target="_blank">Link to the Understanding Symmetry Page</a>
+        </h3>
+        <h4 class="text-center">
+            If the above button can not open the new page properly, please copy and open this link: 
+        </h4>
+        <h4 class="text-center"> <a href="https://alexis97.github.io/RP-Interface/pages/begin.html" target="_blank"> https://alexis97.github.io/RP-Interface/pages/begin.html </a> in a new page </h4>
+    </div>
+    `);
     // $("canvas.labeling-tool").replaceWith(``);
     // $("img.bk-image").replaceWith(
     //     `
@@ -213,9 +226,12 @@ function setupCanvas(canvas, img) {
     });
     // console.log(below_height);
 
-    var max_c_height = window.innerHeight - container.getBoundingClientRect().top - below_height - 90;
+    var max_c_height = window.innerHeight - container.getBoundingClientRect().top - 120;
+    var max_c_width = container.getBoundingClientRect().width - 20;
 
-    var ratio = max_c_height / img.naturalHeight;
+    var w_ratio = max_c_width / img.naturalWidth;
+    var h_ratio = max_c_height / img.naturalHeight;
+    var ratio = Math.min(w_ratio, h_ratio);
 
     canvas.width = img.naturalWidth * ratio;
     canvas.height = img.naturalHeight * ratio;
