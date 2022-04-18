@@ -34,10 +34,19 @@
                         <!-- <a class="list-group-item" id="ref">Reflection axis (two end points/clicks)</a> -->
                     </ul>
 
-                    <img class="bk-image" src = ""> </img>
+                   
+                    <div id="label-canvas">
+                        <img class="bk-image" src=""> </img>
+                        <canvas class="labeling-tool" id="canvas-left">
+                            [Left Image Here]
+                        </canvas>
+                    </div>
+           
+                    
+                    <!-- <img class="bk-image" src = ""> </img>
                     <canvas class="labeling-tool" id="canvas-left">
                         [Left Image Here]
-                    </canvas>
+                    </canvas> -->
 
                     <p>
                         <center>
@@ -51,7 +60,7 @@
                     <div class="vertical-center">
                         <div class="page-header">
                             <p class="text-center">
-                                    <button type="button" class="btn btn-lg btn-primary" id="next-train">Next Page</button>
+                                    <button type="button" class="btn btn-lg btn-primary" id="next">Next Page</button>
                             </p>
                         </div>
                         <div id="info-board">
@@ -60,6 +69,7 @@
 
                             <p class="text-center" id = "labeled"> Labeled: 0 </p>
                             <p class="text-center" id = "total"> (Max:100) </p> -->
+                            <!-- <p class="text-center"> Skip Both Images </p> -->
                             <p class="text-center"> Minimum Labeled </p>
                         </div>
                     </div>
@@ -74,10 +84,16 @@
                         <a class="list-group-item" id="ref">Reflection axis (two end points/clicks)</a>
                     </ul>
 
-                    <img class="bk-image" src = "" ></img>
+                    <div id="label-canvas">
+                        <img class="bk-image" src=""> </img>
+                        <canvas class="labeling-tool" id="canvas-right">
+                            [Left Image Here]
+                        </canvas>
+                    </div>
+                    <!-- <img class="bk-image" src = "" ></img>
                     <canvas class="labeling-tool" id="canvas-right">
                         [Right Image Here]
-                    </canvas>
+                    </canvas> -->
 
                     <p>
                         <center>
@@ -86,6 +102,13 @@
                     </p>
                 </div>
 
+            </div>
+
+            <div  class="thumbnail">
+                <h3 class="text-center">
+                    <a href="definition.html" target="_blank">Link to the Understanding Symmetry Page</a>
+                </h3>
+                
             </div>
 
         </div>
@@ -98,13 +121,20 @@
 
     <script>
         var img_urls = [
-            "../figures/demo label images/new_label_000.jpg",
-            "../figures/demo label images/new_label_001.jpg",
+            "../figures/test images/real_rot.jpg",
+            "../figures/test images/real_ref.jpg",
         ];
     </script>
 
     <script src="label.js"></script>
-    <script src="train.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $(".btn#next").click(function () {
+                location.href = "train2.html";
+            });
+        });
+    </script>
 </body>
 
 </html>

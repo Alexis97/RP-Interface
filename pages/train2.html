@@ -37,10 +37,12 @@
                         <a class="list-group-item" id="ref">Reflection axis (two end points/clicks)</a>
                     </ul>
 
-                    <img class="bk-image" src = ""> </img>
-                    <canvas class="labeling-tool" id="canvas-left">
-                        [Left Image Here]
-                    </canvas>
+                    <div id="label-canvas">
+                        <img class="bk-image" src=""> </img>
+                        <canvas class="labeling-tool" id="canvas-left">
+                            [Left Image Here]
+                        </canvas>
+                    </div>
 
                     <p>
                         <center>
@@ -54,7 +56,7 @@
                     <div class="vertical-center">
                         <div class="page-header">
                             <p class="text-center">
-                                    <button type="button" class="btn btn-lg btn-primary" id="next-train">Next Page</button>
+                                    <button type="button" class="btn btn-lg btn-primary" id="next">Next Page</button>
                             </p>
                         </div>
                         <div id="info-board">
@@ -77,10 +79,12 @@
                         <a class="list-group-item" id="ref">Reflection axis (two end points/clicks)</a>
                     </ul>
 
-                    <img class="bk-image" src = "" ></img>
-                    <canvas class="labeling-tool" id="canvas-right">
-                        [Right Image Here]
-                    </canvas>
+                    <div id="label-canvas">
+                        <img class="bk-image" src=""> </img>
+                        <canvas class="labeling-tool" id="canvas-right">
+                            [Left Image Here]
+                        </canvas>
+                    </div>
 
                     <p>
                         <center>
@@ -90,6 +94,14 @@
                 </div>
 
             </div>
+
+            <div  class="thumbnail">
+                <h3 class="text-center">
+                    <a href="definition.html" target="_blank">Link to the Understanding Symmetry Page</a>
+                </h3>
+                
+            </div>
+
 
         </div>
     </body>
@@ -101,13 +113,20 @@
 
     <script>
         var img_urls = [
-            "../figures/demo label images/new_label_002.jpg",
-            "../figures/demo label images/new_label_003.jpg",
+            "../figures/test images/real_both.jpg",
+            "../figures/test images/real_no_sym.jpg",
         ];
     </script>
 
     <script src="label.js"></script>
-    <script src="train.js"></script>
+    
+    <script>
+        $(document).ready(function () {
+            $(".btn#next").click(function () {
+                location.href = "congrats.html";
+            });
+        });
+    </script>
 </body>
 
 </html>

@@ -150,28 +150,36 @@ function getCanvasId(canvas) {
 }
 
 function setupCanvas(canvas, img) {
+    // * compute the suitable canvas size
+    // get the height of all elements below the canvas
+    var container = $(canvas).parent()[0];
+    var below_height = 0;
+    $(canvas).parent().nextAll().each((i, e) => {
+        below_height += e.offsetHeight;
+    });
+    // console.log(below_height);
+    
+    var max_c_height = window.innerHeight - container.getBoundingClientRect().top - 90;
+    var max_c_width = container.getBoundingClientRect().width - 20;
 
-    // * setup canvas size
-    var c_width = canvas.getBoundingClientRect().width;
-    var c_height = canvas.getBoundingClientRect().height;
-
-    // * get the image size and re-arrange bk image and ft canvas
-    // var ratio = c_width / img.naturalWidth;
-    var hRatio = c_width / img.naturalWidth;
-    var vRatio = c_height / img.naturalHeight;
-    var ratio = Math.min(hRatio, vRatio);
-    // console.log(hRatio, vRatio, ratio);
-
-    ratio = hRatio;
+    var w_ratio = max_c_width / img.naturalWidth;
+    var h_ratio = max_c_height / img.naturalHeight;
+    var ratio = Math.min(w_ratio, h_ratio);
 
     canvas.width = img.naturalWidth * ratio;
     canvas.height = img.naturalHeight * ratio;
     // console.log(canvas.width, canvas.height);
 
-    img.width = canvas.getBoundingClientRect().width;
-    img.height = canvas.getBoundingClientRect().height;
-    $(img).css({ "position": "absolute", "visibility": "visible", "z-index": -1 });
+    $(img).css({ 
+        "position": "absolute", 
+        "visibility": "visible", "z-index": -1 ,
+        "left": `50%`,
+        "margin-left": `-${canvas.width / 2}px`
+    });
 
+    img.width = canvas.width;
+    img.height = canvas.height;
+    // console.log(img.width, img.height);
 }
 
 

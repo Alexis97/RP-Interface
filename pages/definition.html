@@ -23,7 +23,7 @@
                 <h2 class="text-center"><b>Understanding Symmetry</b></h3>
                     <!-- <h1>Label one symmetry per image.</h1> -->
                     <div class="thumbnail">
-                        
+
                         <!-- Part 1 -->
                         <h3 class="text-center"><b>Toy Examples</b></h3>
                         <div class="row">
@@ -45,7 +45,8 @@
                                     <div>
                                         <h4 class="text-center"><b>Rotational Symmetry Examples</b></h4>
                                         <div class="text-center">
-                                            <img src="..\figures\tutorial\symmetry-shape-r8.gif" class="small-example" />
+                                            <img src="..\figures\tutorial\symmetry-shape-r8.gif"
+                                                 class="small-example" />
 
                                             <img src="..\figures\tutorial\rot_pattern.png" class="small-example" />
                                         </div>
@@ -77,9 +78,11 @@
                                     <div>
                                         <h4 class="text-center"><b>Reflection Symmetry Examples</b></h4>
                                         <div class="text-center">
-                                            <img src="..\figures\tutorial\symmetry-equilateral-triangle.gif" class="small-example" />
+                                            <img src="..\figures\tutorial\symmetry-equilateral-triangle.gif"
+                                                 class="small-example" />
 
-                                            <img src="..\figures\tutorial\symmetry-isosceles-triangle.gif" class="small-example" />
+                                            <img src="..\figures\tutorial\symmetry-isosceles-triangle.gif"
+                                                 class="small-example" />
                                         </div>
                                     </div>
 
@@ -88,31 +91,69 @@
                                         <div class="text-center">
                                             <img src="..\figures\tutorial\symmetry-square.gif" class="small-example" />
 
-                                            <img src="..\figures\tutorial\symmetry-rectangle.gif" class="small-example" />
+                                            <img src="..\figures\tutorial\symmetry-rectangle.gif"
+                                                 class="small-example" />
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
                             <h4 class="text-center"> Some images above are borrowed from <a href="http://mathisfun.com"
-                                target="_blank">mathisfun.com</a> </h4>
+                                   target="_blank">mathisfun.com</a> </h4>
                         </div>
 
                         <!-- Part 2 -->
-                        <h3 class="text-center"><b>Examples of Symmetries in Real Photos</b></h3>
-                        <h4 class="text-center"> Note: Real world symmetries will <strong style="color: red;font-size: 120%;">NOT</strong>
+                        <h3 class="text-center"><b>Examples of Symmetries in Real Photos </b></h3>
+                        <h4 class="text-center"> Note: Real world symmetries will <strong
+                                    style="color: red;font-size: 120%;">NOT</strong>
                             appear as perfect as those in the toy examples above. </h4>
 
-                        <h4 class="text-center"> <text style="color: red"> Red Circle </text> -- Rotation Symmetry Center <br>
+                        <h4 class="text-center"> <text style="color: red"> Red Circle </text> -- Rotation Symmetry
+                            Center <br>
                             <text style="color: green"> Green Line </text> -- Reflection Axis
                         </h4>
 
-                        <div class="thumbnail" id="real-images">
+                        <div id="real-images">
+                            <div class="col-md-6" id="col-0">
 
+                            </div>
+                            <div class="col-md-6" id="col-1">
+
+                            </div>
                         </div>
+
+                        <!-- Part 3 -->
+                        <h3 class="text-center"><b> Real World Symmetries Perceived and Labeled by Multiple Users </b>
+                        </h3>
+                        <h4 class="text-center"> NOTE: Real world symmetries may <strong
+                                    style="color: red;font-size: 120%;">NOT</strong> appear
+                            perfectly. </h4>
+
+                        <h4 class="text-center"> <text style="color: red"> Red Circle </text> -- Rotation Symmetry
+                            Center <br>
+                            <text style="color: green"> Green Line </text> -- Reflection Axis
+                        </h4>
+
+                        <div id="real-images-multi-users">
+                            <div class="col-md-6" id="col-0">
+
+                            </div>
+                            <div class="col-md-6" id="col-1">
+
+                            </div>
+                        </div>
+                    
+
+                    <!-- Button -->
+                    <div class="border">
+                        <p>
+                            <center>
+                                <button type="button" class="btn btn-lg btn-primary" id="next">Go to Training</button>
+                            </center>
+                        </p>
+                        <h4 class="text-center"> A short training (label 4 sample images) </h4>
                     </div>
-
-
+                </div>
             </div>
 
 
@@ -125,17 +166,50 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
     <script>
+        var real_img_urls = [
+            "yanxi_rot.gif",
+            "yanxi_ref.gif",
+            "london-eye.gif",
+            "laying_down.gif",
+        ];
+
+        var real_multi_img_urls = [
+            "room_cat.gif",
+            "thomas.gif",
+            "desk_cat.gif",
+            "toilet.gif"
+        ];
+
         $(document).ready(function () {
             // Set Style
             $("img.example").css({ "width": "400", "height": "400" })
             $("img.small-example").css({ "width": "200", "height": "200" })
 
             // Load Real Images
+            real_img_urls.forEach((img_url, index)=>{
+                $(`div#real-images > #col-${index%2}`).append(
+                    `
+                    <div class="thumbnail">
+                    <img src="../figures/tutorial/${img_url}" class="example" />
+                    </div>
+                    `
+                );
+            });
+
+            real_multi_img_urls.forEach((img_url, index)=>{
+                $(`div#real-images-multi-users > #col-${index%2}`).append(
+                    `
+                    <div class="thumbnail">
+                    <img src="../figures/tutorial/${img_url}" class="example" />
+                    </div>
+                    `
+                );
+            });
             
 
-            // $("button#begin").click(function () {
-            //     location.href = "train1.html";
-            // });
+            $("button#next").click(function () {
+                location.href = "train1.html";
+            });
         }); 
     </script>
 
