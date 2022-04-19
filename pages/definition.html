@@ -123,7 +123,10 @@
                         </div>
 
                         <!-- Part 3 -->
-                        <h3 class="text-center"><b> Real World Symmetries Perceived and Labeled by Multiple Users </b>
+                        <!-- <h3 class="text-center"><b> Real World Symmetries Perceived and Labeled by Multiple Users </b>
+                        </h3> -->
+                        <h3 class="text-center"><b> The goal of the study is to find out how humans perceive symmetries
+                                in real world scenes.</b>
                         </h3>
                         <h4 class="text-center"> NOTE: Real world symmetries may <strong
                                     style="color: red;font-size: 120%;">NOT</strong> appear
@@ -142,18 +145,56 @@
 
                             </div>
                         </div>
-                    
 
-                    <!-- Button -->
-                    <div class="border">
-                        <p>
-                            <center>
-                                <button type="button" class="btn btn-lg btn-primary" id="next">Go to Training</button>
-                            </center>
-                        </p>
-                        <h4 class="text-center"> A short training (label 4 sample images) </h4>
+
+                        <!-- Part 4 -->
+                        <h3 class="text-center"><b>Instructions</b></h3>
+                        <div class="thumbnail">
+                            <ul>
+                                <li>First, choose which type of symmetry to be labeled!</li>
+
+                                <li>On the photos:</li>
+                                <ul>
+                                    <li> If you see something similar to a rotation symmetry, label its rotation center
+                                        (one
+                                        click).</li>
+                                    <li> If you see something similar to a reflection symmetry, label the two ends of
+                                        the
+                                        reflection axis (two clicks).</li>
+                                </ul>
+                            </ul>
+                        </div>
+
+                        <div class="thumbnail">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="thumbnail">
+                                        <img src="..\figures\tutorial\Final_Rot.gif"></img>
+
+                                        <p class="text-center"> How to label a Rotational Symmetry Center</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 ">
+                                    <div class="thumbnail">
+                                        <img src="..\figures\tutorial\Final_Ref.gif"></img>
+
+                                        <p class="text-center"> How to label a Reflection Symmetry Axis</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Button -->
+                        <div class="border">
+                            <p>
+                                <center>
+                                    <button type="button" class="btn btn-lg btn-primary" id="next">Go to
+                                        Training</button>
+                                </center>
+                            </p>
+                            <h4 class="text-center"> A short training (label 4 sample images) </h4>
+                        </div>
                     </div>
-                </div>
             </div>
 
 
@@ -186,8 +227,8 @@
             $("img.small-example").css({ "width": "200", "height": "200" })
 
             // Load Real Images
-            real_img_urls.forEach((img_url, index)=>{
-                $(`div#real-images > #col-${index%2}`).append(
+            real_img_urls.forEach((img_url, index) => {
+                $(`div#real-images > #col-${index % 2}`).append(
                     `
                     <div class="thumbnail">
                     <img src="../figures/tutorial/${img_url}" class="example" />
@@ -196,8 +237,8 @@
                 );
             });
 
-            real_multi_img_urls.forEach((img_url, index)=>{
-                $(`div#real-images-multi-users > #col-${index%2}`).append(
+            real_multi_img_urls.forEach((img_url, index) => {
+                $(`div#real-images-multi-users > #col-${index % 2}`).append(
                     `
                     <div class="thumbnail">
                     <img src="../figures/tutorial/${img_url}" class="example" />
@@ -205,7 +246,7 @@
                     `
                 );
             });
-            
+
 
             $("button#next").click(function () {
                 location.href = "train1.html";

@@ -36,31 +36,23 @@ $(document).ready(function () {
     // });
 
     // * setup updates to the arrangement
-    // $("div.container").append(
-    $("body").append(
+    $("div.container").append(
+    // $("body").append(
     `
     <div  class="thumbnail">
-        <h3 class="text-center">
-            <a href="https://alexis97.github.io/RP-Interface/pages/begin.html" target="_blank">Link to the Understanding Symmetry Page</a>
-        </h3>
         <h4 class="text-center">
-            If the above button can not open the new page properly, please copy and open this link: 
+            <a href="https://alexis97.github.io/RP-Interface/pages/definition.html" target="_blank">Understanding Symmetry</a>
         </h4>
-        <h4 class="text-center"> <a href="https://alexis97.github.io/RP-Interface/pages/begin.html" target="_blank"> https://alexis97.github.io/RP-Interface/pages/begin.html </a> in a new page </h4>
+        <h5 class="text-center">
+            Copy and open this link in a new page:
+        </h5>
+
+        <h5 class="text-center"> <a href="https://alexis97.github.io/RP-Interface/pages/definition.html" target="_blank"> https://alexis97.github.io/RP-Interface/pages/definition.html </a></h5>
     </div>
     `);
-    // $("canvas.labeling-tool").replaceWith(``);
-    // $("img.bk-image").replaceWith(
-    //     `
-    //     <div>
-    //         <img class="bk-image" src=""> </img>
-    //         <canvas class="labeling-tool" id="canvas-left">
-    //             [Left Image Here]
-    //         </canvas>
-    //     </div>
-    //     `
-    // );
-    
+
+    $("a#rot").text("Rotation Symmetry: click one point (rotation center)");
+    $("a#ref").text("Reflection Symmetry: click two points (reflection axis)");
 
     var label_panel = $(".label-panel");
     var button_bar = $(label_panel.children(".text-center")[1]);
@@ -69,12 +61,12 @@ $(document).ready(function () {
         <div class="row">
             <div class="col-md-6">
                 <p class="text-center">
-                <button type="button" class="btn btn-lg btn-primary" id="skip">Skip the Image</button>
+                <button type="button" class="btn btn-lg btn-primary" id="skip">Skip This Image</button>
                 </p>
             </div>
             <div class="col-md-6">
                 <p class="text-center">
-                <button type="button" class="btn btn-lg btn-success" id="submit">Submit the Annotations</button>
+                <button type="button" class="btn btn-lg btn-success" id="submit">Submit Your SYMMETRY Labels</button>
                 </p>
             </div>
         </div>
@@ -226,7 +218,7 @@ function setupCanvas(canvas, img) {
     });
     // console.log(below_height);
 
-    var max_c_height = window.innerHeight - container.getBoundingClientRect().top - 120;
+    var max_c_height = window.innerHeight - container.getBoundingClientRect().top - 100;
     var max_c_width = container.getBoundingClientRect().width - 20;
 
     var w_ratio = max_c_width / img.naturalWidth;

@@ -35,6 +35,9 @@ $(document).ready(function () {
     //     console.log(img_urls);
     // });
 
+    $("a#rot").text("Rotation Symmetry: click one point (rotation center)");
+    $("a#ref").text("Reflection Symmetry: click two points (reflection axis)");
+
     num_total = img_urls.length;
 
     // * setup list group active click events
