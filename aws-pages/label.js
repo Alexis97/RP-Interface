@@ -63,7 +63,7 @@ $(document).ready(function () {
             Copy and open this link in a new page:
         </h5>
 
-        <h5 class="text-center"> <a href="https://alexis97.github.io/RP-Interface/pages/tutorial.html" target="_blank"> https://alexis97.github.io/RP-Interface/pages/definition.html </a></h5>
+        <h5 class="text-center"> <a href="https://alexis97.github.io/RP-Interface/pages/tutorial.html" target="_blank"> https://alexis97.github.io/RP-Interface/pages/tutorial.html </a></h5>
     </div>
     `);
 
