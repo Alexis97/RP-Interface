@@ -36,18 +36,34 @@ $(document).ready(function () {
     // });
 
     // * setup updates to the arrangement
+    
+    $("div.container > div.page-header").prepend(
+        `
+        <h3 class="text-center"><b> The goal of the study is to find out how humans perceive symmetries
+                                in real world scenes.</b>
+                        </h3>
+                        <h4 class="text-center"> NOTE: Real world symmetries may <strong
+                                    style="color: red;font-size: 120%;">NOT</strong> appear
+                            perfectly. </h4>
+        `
+    );                      
+    $("div.container > div.page-header").append(
+        `
+        <h5 class="text-center"> To protect page alignment, please do <b>NOT</b> view this page on mobile devices. </h5>
+        `
+    );
     $("div.container").append(
     // $("body").append(
     `
     <div  class="thumbnail">
         <h4 class="text-center">
-            <a href="https://alexis97.github.io/RP-Interface/pages/definition.html" target="_blank">Understanding Symmetry</a>
+            <a href="https://alexis97.github.io/RP-Interface/pages/tutorial.html" target="_blank">Understanding Symmetry</a>
         </h4>
         <h5 class="text-center">
             Copy and open this link in a new page:
         </h5>
 
-        <h5 class="text-center"> <a href="https://alexis97.github.io/RP-Interface/pages/definition.html" target="_blank"> https://alexis97.github.io/RP-Interface/pages/definition.html </a></h5>
+        <h5 class="text-center"> <a href="https://alexis97.github.io/RP-Interface/pages/tutorial.html" target="_blank"> https://alexis97.github.io/RP-Interface/pages/definition.html </a></h5>
     </div>
     `);
 

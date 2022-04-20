@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Sample video of a labeling process</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+</head>
+
+<body>
+
+    <body>
+        <div class="container">
+
+            <div class="page-header">
+                <a href="tutorial.html">
+                    <h2 class="text-center"><b>Back to Understanding Symmetry</b></h2>
+                </a>
+                <h3 class="text-center"><b> The goal of the study is to find out how humans perceive symmetries
+                        in real world scenes.</b>
+                </h3>
+            </div>
+
+            <h3 class="text-center"><b>Instructions</b></h3>
+            <div class="thumbnail">
+                <ul>
+                    <li>First, choose which type of symmetry to be labeled!</li>
+
+                    <li>On the photos:</li>
+                    <ul>
+                        <li> If you see something similar to a rotation symmetry, label its rotation center
+                            (one
+                            click).</li>
+                        <li> If you see something similar to a reflection symmetry, label the two ends of
+                            the
+                            reflection axis (two clicks).</li>
+                    </ul>
+                </ul>
+            </div>
+
+            <div class="thumbnail">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="thumbnail">
+                            <img src="..\figures\tutorial\Final_Rot.gif"></img>
+
+                            <p class="text-center"> How to label a Rotational Symmetry Center</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 ">
+                        <div class="thumbnail">
+                            <img src="..\figures\tutorial\Final_Ref.gif"></img>
+
+                            <p class="text-center"> How to label a Reflection Symmetry Axis</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-header"><a href="train1.html">
+                    <h3 class="text-center"><b>A quick training to test your understanding of symmetry on real
+                            photos</b></h3>
+                </a></div>
+
+        </div>
+    </body>
+
+    <script src="https://fastly.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <script>
+        var real_multi_img_urls = [
+            "room_cat.gif",
+            "thomas.gif",
+            "desk_cat.gif",
+            "toilet.gif"
+        ];
+
+        $(document).ready(function () {
+            // Set Style
+            $("img.example").css({ "width": "400", "height": "400" })
+            $("img.small-example").css({ "width": "200", "height": "200" })
+
+            real_multi_img_urls.forEach((img_url, index) => {
+                $(`div#real-images-multi-users > #col-${index % 2}`).append(
+                    `
+                    <div class="thumbnail">
+                    <img src="../figures/tutorial/${img_url}" class="example" />
+                    </div>
+                    `
+                );
+            });
+
+        }); 
+    </script>
+
+</body>
+
+</html>
