@@ -36,36 +36,60 @@ $(document).ready(function () {
     // });
 
     // * setup updates to the arrangement
-    
-    $("div.container > div.page-header").prepend(
+    $("div.container > div.page-header").html(
         `
-        <h3 class="text-center"><b> The goal of the study is to find out how humans perceive symmetries
-                                in real world scenes.</b>
-                        </h3>
-                        <h4 class="text-center"> NOTE: Real world symmetries may <strong
-                                    style="color: red;font-size: 120%;">NOT</strong> appear
-                            perfectly. </h4>
-        `
-    );                      
-    $("div.container > div.page-header").append(
-        `
-        <h5 class="text-center"> To protect page alignment, please do <b>NOT</b> view this page on mobile devices. </h5>
-        `
-    );
-    $("div.container").append(
-    // $("body").append(
-    `
-    <div  class="thumbnail">
-        <h4 class="text-center">
-            <a href="https://alexis97.github.io/RP-Interface/pages/tutorial.html" target="_blank">Understanding Symmetry</a>
+        <h4 class="text-center"><b> Goal of the study: to find out how humans perceive symmetries in real world scenes </b>
         </h4>
-        <h5 class="text-center">
-            Copy and open this link in a new page:
-        </h5>
+        <h5 class="text-center"> NOTE: Real world symmetries may <strong
+                    style="color: red;font-size: 120%;">NOT</strong> appear
+            perfectly. </h5>
+        <h4> <b>Instructions:</b> </h4>
+        <ol>
+            <li>
+                Need a refresher on "<b>Symmetry</b>"? Copy and open this link: <a href="https://alexis97.github.io/RP-Interface/pages/tutorial.html" target="_blank"> https://alexis97.github.io/RP-Interface/pages/tutorial.html</a>
+            </li>
+            <li> <b>Label EVERY SYMMETRY</b> you <b>PERCEIVE</b> on each image.</li>
+            <li> <b>Skipping an image</b> (not labeling) is OK if no perceived symmetries are found.</li>
+            <li> CHOOSE WHICH TYPE OF SYMMETRY TO BE LABELED first. </li>
+            <li> Do not use mobile device to view this page. </li>
+        </ol>
+        
+        `
+    )
+    
+    // $("div.container > div.page-header").prepend(
+    //     `
+    //     <h3 class="text-center"><b> The goal of the study is to find out how humans perceive symmetries
+    //                             in real world scenes.</b>
+    //                     </h3>
+    //                     <h4 class="text-center"> NOTE: Real world symmetries may <strong
+    //                                 style="color: red;font-size: 120%;">NOT</strong> appear
+    //                         perfectly. </h4>
+    //     `
+    // );                      
+    // $("div.container > div.page-header").append(
+    //     `
+    //     <h5 class="text-center"> Do not use mobile device to view this page </h5>
+    //     `
+    // );
 
-        <h5 class="text-center"> <a href="https://alexis97.github.io/RP-Interface/pages/tutorial.html" target="_blank"> https://alexis97.github.io/RP-Interface/pages/tutorial.html </a></h5>
-    </div>
-    `);
+
+    // $("div.container").append(
+    // // $("body").append(
+    // `
+    // <div  class="thumbnail">
+    //     <h4 class="text-center">
+    //         <a href="https://alexis97.github.io/RP-Interface/pages/tutorial.html" target="_blank">Understanding Symmetry</a>
+    //     </h4>
+    //     <h5 class="text-center">
+    //         Copy and open this link in a new page:
+    //     </h5>
+
+    //     <h5 class="text-center"> <a href="https://alexis97.github.io/RP-Interface/pages/tutorial.html" target="_blank"> https://alexis97.github.io/RP-Interface/pages/tutorial.html </a></h5>
+    // </div>
+    // `);
+
+    $($("div.label-panel > p")[0]).replaceWith("");
 
     $("a#rot").text("Rotation Symmetry: click one point (rotation center)");
     $("a#ref").text("Reflection Symmetry: click two points (reflection axis)");
