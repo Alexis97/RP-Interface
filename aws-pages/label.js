@@ -4,6 +4,8 @@
 // var img_urls = require("./demo_img_urls.json");
 // var img_urls = [];
 var img_urls = [
+    // "../figures/images/1.jpg",
+    "../figures/tutorial/Butterfly.jpg",
     "../figures/demo label images/new_label_000.jpg",
     "../figures/demo label images/new_label_001.jpg",
     "../figures/demo label images/new_label_002.jpg",
@@ -27,6 +29,8 @@ var num_skipped = 0;
 var num_labeled = 0;
 var num_total = 0;
 
+var active_list_bg_colors = { "rot": "rgba(255, 0, 0, 0.1)", "ref": "rgba(0, 255, 0, 0.1)" };
+
 $(document).ready(function () {
     // * setup everything to get ready
     // $.getJSON("./demo_img_urls.json", { get_param: 'value' }, function(data) {
@@ -36,82 +40,63 @@ $(document).ready(function () {
     // });
 
     // * setup updates to the arrangement
-    $("div.container > div.page-header").html(
+    $("div.container > div#instructions").html(
         `
-        <h4 class="text-center"><b> Goal of the study: to find out how humans perceive symmetries in real world scenes </b>
-        </h4>
-        <h5 class="text-center"> NOTE: Real world symmetries may <strong
-                    style="color: red;font-size: 120%;">NOT</strong> appear
-            perfectly. </h5>
-        <h4> <b>Instructions:</b> </h4>
-        <ol>
-            <li>
-                Need a refresher on "<b>Symmetry</b>"? Copy and open this link: <a href="https://alexis97.github.io/RP-Interface/pages/tutorial.html" target="_blank"> https://alexis97.github.io/RP-Interface/pages/tutorial.html</a>
-            </li>
-            <li> <b>Label EVERY SYMMETRY</b> you <b>PERCEIVE</b> on each image.</li>
-            <li> <b>Skipping an image</b> (not labeling) is OK if no perceived symmetries are found.</li>
-            <li> CHOOSE WHICH TYPE OF SYMMETRY TO BE LABELED first. </li>
-            <li> Do not use mobile device to view this page. </li>
-        </ol>
-        
+        <h4 class="text-center"><b> Goal of the study: to find out how humans perceive symmetries in real
+                            world scenes </b>
+                    </h4>
+                    <h5 class="text-center"> Note: Real world symmetries may <strong
+                                style="color: red;font-size: 120%;">NOT</strong> appear
+                        perfectly. </h5>
+                    <h4> <b>Instructions:</b> </h4>
+                    <ol>
+                        <li>
+                            Need a refresher on "<b>Symmetry</b>"? Copy and open this link: <a
+                               href="https://alexis97.github.io/RP-Interface/pages/tutorial.html" target="_blank">
+                                https://alexis97.github.io/RP-Interface/pages/tutorial.html</a>
+                        </li>
+                        <li> <b>Label every symmetry</b> you <b>perceive</b> on each image.</li>
+                        <li> <b>Skipping an image</b> (not labeling) is OK if no perceived symmetries are found.</li>
+                        <li> Choose which type of symmetry to be labeled first. </li>
+                        <li> Do not use mobile device to view this page. </li>
+                    </ol>
         `
     )
-    
-    // $("div.container > div.page-header").prepend(
-    //     `
-    //     <h3 class="text-center"><b> The goal of the study is to find out how humans perceive symmetries
-    //                             in real world scenes.</b>
-    //                     </h3>
-    //                     <h4 class="text-center"> NOTE: Real world symmetries may <strong
-    //                                 style="color: red;font-size: 120%;">NOT</strong> appear
-    //                         perfectly. </h4>
-    //     `
-    // );                      
-    // $("div.container > div.page-header").append(
-    //     `
-    //     <h5 class="text-center"> Do not use mobile device to view this page </h5>
-    //     `
-    // );
 
 
-    // $("div.container").append(
-    // // $("body").append(
-    // `
-    // <div  class="thumbnail">
-    //     <h4 class="text-center">
-    //         <a href="https://alexis97.github.io/RP-Interface/pages/tutorial.html" target="_blank">Understanding Symmetry</a>
-    //     </h4>
-    //     <h5 class="text-center">
-    //         Copy and open this link in a new page:
-    //     </h5>
+    // $($("div.label-panel > p")[0]).replaceWith("");
 
-    //     <h5 class="text-center"> <a href="https://alexis97.github.io/RP-Interface/pages/tutorial.html" target="_blank"> https://alexis97.github.io/RP-Interface/pages/tutorial.html </a></h5>
-    // </div>
-    // `);
+  
 
-    $($("div.label-panel > p")[0]).replaceWith("");
-
-    $("a#rot").text("Rotation Symmetry: click one point (rotation center)");
-    $("a#ref").text("Reflection Symmetry: click two points (reflection axis)");
-
-    var label_panel = $(".label-panel");
-    var button_bar = $(label_panel.children(".text-center")[1]);
-    button_bar.replaceWith(
+    $("div#body-part > div#actions").html(
         `
-        <div class="row">
-            <div class="col-md-6">
-                <p class="text-center">
-                <button type="button" class="btn btn-lg btn-primary" id="skip">Skip This Image</button>
-                </p>
-            </div>
-            <div class="col-md-6">
-                <p class="text-center">
-                <button type="button" class="btn btn-lg btn-success" id="submit">Submit Your SYMMETRY Labels</button>
-                </p>
-            </div>
-        </div>
+        <h4> <b>Actions:</b> </h4>
+                        <ol>
+                            <li>
+                                <div class="thumbnail">
+                                <p><button type="button" class="btn btn-lg dummy-button" disabled>Label SYMMETRY</button></p>
+                                <!-- <h3><span class="label label-primary">LABEL SYMMETRY </span> </h3> -->
+                                <!-- <h5>LABEL SYMMETRY </h5> -->
+                                <div class="">
+                                    <ul class="list-group" id="option-left">
+                                        <a class="list-group-item" id="rot">-> Rotation center (one point/click)</a>
+                                        <a class="list-group-item" id="ref">-> Reflection axis (two end points/clicks)</a>
+                                    </ul>
+                                </div>
+                                </div>
+                            </li>
+                            <li> <p><button type="button" class="btn btn-lg btn-warning clear" id="left">Clear Last Label</button></p> </li>
+                            <li> <p><button type="button" class="btn btn-lg btn-primary" id="skip">Skip This Image</button></p> </li>
+                            <li> <p><button type="button" class="btn btn-lg btn-success" id="submit">Submit Your SYMMETRY Labels</button></p> </li>
+                        </ol>
         `);
-    
+
+    $("a#rot").text("→ Rotation Symmetry: click one point (rotation center)");
+    $("a#ref").text("→ Reflection Symmetry: click two points (reflection axis)");
+    $("a#rot").css({ "background-color": active_list_bg_colors["rot"] });
+    $("a#ref").css({ "background-color": active_list_bg_colors["ref"] });
+
+    $("button.dummy-button").css({ "color": "white", "background-color": "#666060" });
 
     // * read the image url
     var img_url = $("#img-url").text();
@@ -125,7 +110,9 @@ $(document).ready(function () {
     var options = $(".list-group .list-group-item");
     options.click(function () {
         $(this).addClass("active");
+        $(this).css("background-color", "");
         $(this).siblings().removeClass("active");
+        
 
         var id = -1;
         if ($(this).parent().attr('id') == "option-left")
@@ -133,13 +120,20 @@ $(document).ready(function () {
         else if ($(this).parent().attr('id') == "option-right")
             id = 1;
 
-        if ($(this).attr('id') == "rot")
+        if ($(this).attr('id') == "rot") {
+            $(this).siblings().css({ "background-color": active_list_bg_colors["ref"]});
             sym_types[id] = "rot";
+        }
+
         else if ($(this).attr('id') == "ref")
+        {
+            $(this).siblings().css({ "background-color": active_list_bg_colors["rot"]});
             sym_types[id] = "ref";
+        }
+            
     });
 
-    
+
 
     // * setup image & canvas
     $(".labeling-tool").each((index, element) => {
@@ -175,7 +169,7 @@ $(document).ready(function () {
 
         if (sym_types[id] == "rot") {
             // draw a point for rotation symmetry
-            drawPoint(this, relX, relY, color = 'red', board_color = 'blue');
+            drawPoint(this, relX, relY, color = 'red', board_color = 'yellow');
             addRotAnno(this, relX, relY);
         }
         else if (sym_types[id] == "ref") {
@@ -213,7 +207,7 @@ $(document).ready(function () {
 
     // * setup skip button
     $(".btn#skip").click(function () {
-        annos = [];
+        img_id = initialVars(img_id);
         $("crowd-form")[0].submit();
     });
 
@@ -223,13 +217,39 @@ $(document).ready(function () {
     updateInfoBoard($("#info-board"));
 
     // * setup crowd-form submit 
-    $("crowd-form")[0].onsubmit = function () {
-        submit();
-    };
-
+    if ($("crowd-form").length > 0)
+    {
+        $("crowd-form")[0].onsubmit = function () {
+            submit();
+        };
+    }
     
+
+
     // $(label_panel.children(".text-center")[1]).replaceWith(`<button type="button" class="btn btn-lg btn-primary" id="skip">Skip</button>`);
 });
+
+function initialVars(cur_img_id) {
+    // * Initial variables
+    img_size = []
+    annos = []
+    sym_types = []
+    prev_XY = []
+
+    $(".labeling-tool").each((index, element) => {
+        $(".bk-image")[index].src = img_urls[cur_img_id];
+
+        img_size[index] = [$(".bk-image")[index].width, $(".bk-image")[index].height];
+        // setupCanvas(element, $(".bk-image")[index]);
+        cur_img_id += 1;
+        // * init annotation & symmetry types: Rotation and Reflection
+        annos.push({ "Rotation": [], "Reflection": [] });
+        sym_types.push('None');
+        prev_XY.push([-1, -1]);
+    });
+
+    return cur_img_id;
+}
 
 function loadImgURLs(json_url) {
     $.getJSON(json_url, { get_param: 'value' }, function (data) {
@@ -258,8 +278,8 @@ function setupCanvas(canvas, img) {
     });
     // console.log(below_height);
 
-    var max_c_height = window.innerHeight - container.getBoundingClientRect().top - 100;
-    var max_c_width = container.getBoundingClientRect().width - 20;
+    var max_c_height = window.innerHeight - container.getBoundingClientRect().top - 30;
+    var max_c_width = container.getBoundingClientRect().width;
 
     var w_ratio = max_c_width / img.naturalWidth;
     var h_ratio = max_c_height / img.naturalHeight;
@@ -269,9 +289,9 @@ function setupCanvas(canvas, img) {
     canvas.height = img.naturalHeight * ratio;
     // console.log(canvas.width, canvas.height);
 
-    $(img).css({ 
-        "position": "absolute", 
-        "visibility": "visible", "z-index": -1 ,
+    $(img).css({
+        "position": "absolute",
+        "visibility": "visible", "z-index": -1,
         "left": `50%`,
         "margin-left": `-${canvas.width / 2}px`
     });
@@ -282,18 +302,20 @@ function setupCanvas(canvas, img) {
 }
 
 
-function drawPoint(canvas, x, y, color = 'red', board_color = 'green', radius = 4, lineWidth = 2, boarder = 1) {
+function drawPoint(canvas, x, y, color = 'red', board_color = '', radius = 8, lineWidth = 4, boarder = 1) {
     // * draw a point on the canvas
     x *= canvas.width;
     y *= canvas.height;
 
     var ctx = canvas.getContext('2d');
 
-    ctx.beginPath();
-    ctx.arc(x, y, radius, 0, 2 * Math.PI);
-    ctx.lineWidth = lineWidth + boarder;
-    ctx.strokeStyle = board_color;
-    ctx.stroke();
+    if (board_color != "") {
+        ctx.beginPath();
+        ctx.arc(x, y, radius, 0, 2 * Math.PI);
+        ctx.lineWidth = lineWidth + boarder;
+        ctx.strokeStyle = board_color;
+        ctx.stroke();
+    }
 
     ctx.beginPath();
     ctx.arc(x, y, radius, 0, 2 * Math.PI);
@@ -302,7 +324,7 @@ function drawPoint(canvas, x, y, color = 'red', board_color = 'green', radius = 
     ctx.stroke();
 }
 
-function drawLine(canvas, x1, y1, x2, y2, color = 'red', board_color = 'green', lineWidth = 2, boarder = 1) {
+function drawLine(canvas, x1, y1, x2, y2, color = 'red', board_color = '', lineWidth = 4, boarder = 1) {
     // * draw a line on the canvas
     x1 *= canvas.width;
     y1 *= canvas.height;
@@ -311,12 +333,15 @@ function drawLine(canvas, x1, y1, x2, y2, color = 'red', board_color = 'green', 
 
     var ctx = canvas.getContext('2d');
 
-    ctx.beginPath();
-    ctx.moveTo(x1, y1);
-    ctx.lineTo(x2, y2);
-    ctx.lineWidth = lineWidth + boarder;
-    ctx.strokeStyle = board_color;
-    ctx.stroke();
+    if (board_color != "") {
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.lineWidth = lineWidth + boarder;
+        ctx.strokeStyle = board_color;
+        ctx.stroke();
+
+    }
 
     ctx.beginPath();
     ctx.moveTo(x1, y1);

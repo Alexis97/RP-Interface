@@ -27,6 +27,8 @@ var num_skipped = 0;
 var num_labeled = 0;
 var num_total = 0;
 
+var active_list_bg_colors = { "rot": "rgba(255, 0, 0, 0.1)", "ref": "rgba(0, 255, 0, 0.1)" };
+
 $(document).ready(function () {
     // * setup everything to get ready
     // $.getJSON("./demo_img_urls.json", { get_param: 'value' }, function(data) {
@@ -35,8 +37,12 @@ $(document).ready(function () {
     //     console.log(img_urls);
     // });
 
-    $("a#rot").text("Rotation Symmetry: click one point (rotation center)");
-    $("a#ref").text("Reflection Symmetry: click two points (reflection axis)");
+    $("a#rot").text("→ Rotation Symmetry: click one point (rotation center)");
+    $("a#ref").text("→ Reflection Symmetry: click two points (reflection axis)");
+    $("a#rot").css({ "background-color": active_list_bg_colors["rot"] });
+    $("a#ref").css({ "background-color": active_list_bg_colors["ref"] });
+
+    $("button.dummy-button").css({ "color": "white", "background-color": "#666060" });
 
     num_total = img_urls.length;
 
@@ -44,7 +50,9 @@ $(document).ready(function () {
     var options = $(".list-group .list-group-item");
     options.click(function () {
         $(this).addClass("active");
+        $(this).css("background-color", "");
         $(this).siblings().removeClass("active");
+        
 
         var id = -1;
         if ($(this).parent().attr('id') == "option-left")
@@ -52,12 +60,18 @@ $(document).ready(function () {
         else if ($(this).parent().attr('id') == "option-right")
             id = 1;
 
-        if ($(this).attr('id') == "rot")
+        if ($(this).attr('id') == "rot") {
+            $(this).siblings().css({ "background-color": active_list_bg_colors["ref"]});
             sym_types[id] = "rot";
-        else if ($(this).attr('id') == "ref")
-            sym_types[id] = "ref";
-    });
+        }
 
+        else if ($(this).attr('id') == "ref")
+        {
+            $(this).siblings().css({ "background-color": active_list_bg_colors["rot"]});
+            sym_types[id] = "ref";
+        }
+            
+    });
 
     // * setup image & canvas
     $(".labeling-tool").each((index, element) => {
@@ -93,7 +107,7 @@ $(document).ready(function () {
 
         if (sym_types[id] == "rot") {
             // draw a point for rotation symmetry
-            drawPoint(this, relX, relY, color = 'red', board_color = 'blue');
+            drawPoint(this, relX, relY, color = 'red', board_color = 'yellow');
             addRotAnno(this, relX, relY);
         }
         else if (sym_types[id] == "ref") {
@@ -186,7 +200,7 @@ function setupCanvas(canvas, img) {
 }
 
 
-function drawPoint(canvas, x, y, color = 'red', board_color = 'green',  radius = 4, lineWidth = 2, boarder = 1) {
+function drawPoint(canvas, x, y, color = 'red', board_color = 'green',  radius = 8, lineWidth = 4, boarder = 1) {
     // * draw a point on the canvas
     x *= canvas.width;
     y *= canvas.height;
@@ -206,7 +220,7 @@ function drawPoint(canvas, x, y, color = 'red', board_color = 'green',  radius =
     ctx.stroke();
 }
 
-function drawLine(canvas, x1, y1, x2, y2, color = 'red', board_color = 'green', lineWidth = 2, boarder = 1) {
+function drawLine(canvas, x1, y1, x2, y2, color = 'red', board_color = 'green', lineWidth = 4, boarder = 1) {
     // * draw a line on the canvas
     x1 *= canvas.width;
     y1 *= canvas.height;

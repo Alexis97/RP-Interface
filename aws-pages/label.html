@@ -20,73 +20,70 @@
 
     <body>
         <crowd-form id="form">
-            <div class="container">
+            <div class="container-fluid">
 
-                <div class="page-header">
-                    <!-- <h1>Label one symmetry per image.</h1> -->
-                    
+                <div class="page-header" id="instructions">
+                    <h4 class="text-center"><b> Goal of the study: to find out how humans perceive symmetries in real
+                            world scenes </b>
+                    </h4>
+                    <h5 class="text-center"> Note: Real world symmetries may <strong
+                                style="color: red;font-size: 120%;">NOT</strong> appear
+                        perfectly. </h5>
+                    <h4> <b>Instructions:</b> </h4>
+                    <ol>
+                        <li>
+                            Need a refresher on "<b>Symmetry</b>"? Copy and open this link: <a
+                               href="https://alexis97.github.io/RP-Interface/pages/tutorial.html" target="_blank">
+                                https://alexis97.github.io/RP-Interface/pages/tutorial.html</a>
+                        </li>
+                        <li> <b>Label every symmetry</b> you <b>perceive</b> on each image.</li>
+                        <li> <b>Skipping an image</b> (not labeling) is OK if no perceived symmetries are found.</li>
+                        <li> Choose which type of symmetry to be labeled first. </li>
+                        <li> Do not use mobile device to view this page. </li>
+                    </ol>
                 </div>
 
-                <div class="row">
 
-                    <div class="col-md-2">
+                <div class="row" id="body-part">
+                    <div class="page-header col-md-2" id="actions">
+                        <h4> <b>Actions:</b> </h4>
+                        <ol>
+                            <li>
+                                <div class="thumbnail">
+                                <p><button type="button" class="btn btn-lg dummy-button" disabled>Label SYMMETRY</button></p>
+                                <!-- <h3><span class="label label-primary">LABEL SYMMETRY </span> </h3> -->
+                                <!-- <h5>LABEL SYMMETRY </h5> -->
+                                <div class="">
+                                    <ul class="list-group" id="option-left">
+                                        <a class="list-group-item" id="rot">-> Rotation center (one point/click)</a>
+                                        <a class="list-group-item" id="ref">-> Reflection axis (two end points/clicks)</a>
+                                    </ul>
+                                </div>
+                                </div>
+                            </li>
+                            <li> <p><button type="button" class="btn btn-lg btn-warning clear" id="left">Clear Last Label</button></p> </li>
+                            <li> <p><button type="button" class="btn btn-lg btn-primary" id="skip">Skip This Image</button></p> </li>
+                            <li> <p><button type="button" class="btn btn-lg btn-success" id="submit">Submit Your SYMMETRY Labels</button></p> </li>
+                        </ol>
+                        
                     </div>
-                    <div class="col-md-8 label-panel">
+                    <div class="page-header col-md-10" id="label-part">
+                        <div class="row label-panel">
 
-                        <!-- <p id="img-url" style="display: none"> {{ task.input.source-ref | grant_read_access }} </p> -->
-                        <!-- <input name="Rotation" id="Rotation" type="hidden">
-                        <input name="Reflection" id="Reflection" type="hidden"> -->
+                            <div id="img-url" style="display: none"> {{ task.input.source-ref | grant_read_access }} </div>
 
-                        <div id="img-url" style="display: none"> {{ task.input.source-ref | grant_read_access }} </div>
-
-
-                        <!-- <p class="lead">FIRST, CHOOSE WHICH TYPE OF SYMMETRY TO BE LABELED!</p> -->
-                        <p class="lead">CHOOSE WHICH TYPE OF SYMMETRY TO BE LABELED!</p>
-
-                        <ul class="list-group" id="option-left">
-                            <a class="list-group-item" id="rot">Rotation center (one point/click)</a>
-                            <a class="list-group-item" id="ref">Reflection axis (two end points/clicks)</a>
-                        </ul>
-
-                        <!-- <img class="bk-image" src=""> </img>
-                        <canvas class="labeling-tool" id="canvas-left">
-                            [Left Image Here]
-                        </canvas> -->
-
-                        <div id="label-canvas">
+                            <div id="label-canvas">
                                 <img class="bk-image" src=""> </img>
                                 <canvas class="labeling-tool" id="canvas-left">
                                     [Left Image Here]
                                 </canvas>
+                            </div>
+                            <!-- Prevent crowd-form from creating its own button -->
+                            <crowd-button form-action="submit" style="display: none;"></crowd-button>
                         </div>
-
-                        <p class="lead">
-                        <p class="text-center">
-                            <button type="button" class="btn btn-default clear" id="left">Clear Last Label</button>
-                        </p>
-
-                        <p class="text-center">
-                            <button type="button" class="btn btn-lg btn-primary" id="submit">Submit</button>
-                        </p>
-
-                        <!-- Prevent crowd-form from creating its own button -->
-                        <crowd-button form-action="submit" style="display: none;"></crowd-button>
-                        </p>
-
-
-
                     </div>
-                    <div class="col-md-2">
-                    </div>
-
                 </div>
 
-                <!-- <div  class="thumbnail">
-                    <h3 class="text-center">
-                        <a href="https://alexis97.github.io/RP-Interface/pages/definition.html" target="_blank">Link to the Understanding Symmetry Page</a>
-                    </h3>
-                    
-                </div> -->
 
             </div>
         </crowd-form>
