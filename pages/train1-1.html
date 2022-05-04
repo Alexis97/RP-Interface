@@ -92,12 +92,39 @@
     </script>
 
     <script src="label.js"></script>
+    <script src="sym_val.js"></script>
 
     <script>
+        var rot_gt = [0.5754455383848455, 0.4178809032983508];
         $(document).ready(function () {
+
             $(".btn#next").click(function () {
-                location.href = "train1-2.html";
+                // validation
+                var success_flag = true;
+                var user_label = annos[0]["Rotation"];
+                if (user_label.length != 1) {
+                    success_flag = false;
+                    val_failure("You should label ONE rotation symmetry.");
+                    return;
+                }
+
+                if (!validate_rot(user_label[0], rot_gt)) {
+                    success_flag = false;
+                    val_failure("You should label the CENTER of a rotation symmetry.");
+                    return;
+                }
+
+                if (success_flag) {
+                    val_success("After closing this message you will be redirect to the next training page.", "train1-2.html");
+                    return;
+                }
             });
+
+
+            // $("button.close").click(function () {
+            //     console.log("Click close!");
+            //     clearAll($(".labeling-tool")[0]);
+            // });
         });
     </script>
 </body>

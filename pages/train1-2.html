@@ -92,12 +92,44 @@
     </script>
 
     <script src="label.js"></script>
+    <script src="sym_val.js"></script>
 
     <script>
+        var ref_gt = [
+            0.43019450589970504,
+            0.11169109513274336,
+            0.3918464233038348,
+            0.5364698561946902
+        ];
+
+        var th_dist = 0.05;
+
+
         $(document).ready(function () {
+
             $(".btn#next").click(function () {
-                location.href = "train2-1.html";
+                console.log(annos);
+                // validation
+                var success_flag = true;
+                var user_label = annos[0]["Reflection"];
+                if (user_label.length != 1) {
+                    success_flag = false;
+                    val_failure("You should label ONE reflection symmetry.");
+                    return;
+                }
+
+                if (!validate_ref(user_label[0], ref_gt)) {
+                    success_flag = false;
+                    val_failure("You should label the TWO END POINTS of a reflection symmetry.");
+                    return;
+                }
+
+                if (success_flag) {
+                    val_success("After closing this message you will be redirect to the next training page.", "train2-1.html");
+                    return;
+                }
             });
+
         });
     </script>
 </body>

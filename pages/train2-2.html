@@ -22,7 +22,7 @@
                 <h3 class="text-center"><b>Training 2-2: Most people find no prominent symmetries on this image.</b>
                 </h3>
                 <h3 class="text-center"><b>However, if you perceive prominent symmetries, label them;</b></h3>
-                <h3 class="text-center"><b>else, press "Skip This Image" Button to skip the image.</b></h3>
+                <h3 class="text-center"><b>Else, press "Skip This Image" Button to skip the image.</b></h3>
                 <h5 class="text-center"> Note: Real world symmetries may <strong
                             style="color: red;font-size: 120%;">NOT</strong> appear
                     perfectly. </h5>
@@ -96,11 +96,13 @@
     </script>
 
     <script src="label.js"></script>
+    <script src="sym_val.js"></script>
 
     <script>
         $(document).ready(function () {
             $(".btn#next").click(function () {
-                location.href = "congrats.html";
+                val_success("You have finished all the training!", "congrats.html")
+                // location.href = "congrats.html";
             });
         });
     </script>

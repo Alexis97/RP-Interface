@@ -51,7 +51,11 @@ $(document).ready(function () {
     options.click(function () {
         $(this).addClass("active");
         $(this).css("background-color", "");
-        $(this).siblings().removeClass("active");
+
+        $(this).siblings().each(function(index, element){
+            reset_sym_option(element);
+        });
+        // $(this).siblings().removeClass("active");
         
 
         var id = -1;
@@ -61,13 +65,13 @@ $(document).ready(function () {
             id = 1;
 
         if ($(this).attr('id') == "rot") {
-            $(this).siblings().css({ "background-color": active_list_bg_colors["ref"]});
+            // $(this).siblings().css({ "background-color": active_list_bg_colors["ref"]});
             sym_types[id] = "rot";
         }
 
         else if ($(this).attr('id') == "ref")
         {
-            $(this).siblings().css({ "background-color": active_list_bg_colors["rot"]});
+            // $(this).siblings().css({ "background-color": active_list_bg_colors["rot"]});
             sym_types[id] = "ref";
         }
             
@@ -164,6 +168,13 @@ function getCanvasId(canvas) {
         id = 1;
 
     return id;
+}
+
+
+function reset_sym_option(item){
+    // * reset the option click item to inactive status
+    $(item).removeClass("active");
+    $(item).css({ "background-color": active_list_bg_colors[$(item).attr('id')]});
 }
 
 function setupCanvas(canvas, img) {
@@ -363,4 +374,3 @@ function submit() {
 
     
 }
-
