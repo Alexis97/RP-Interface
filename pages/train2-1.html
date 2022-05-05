@@ -127,13 +127,13 @@
                 });
 
                 if (success_ref && success_rot) {
-                    val_success("After closing this message you will be redirect to the next training page.", "train2-2.html");
+                    val_success("After closing this message you will be redirected to the next training page.", "train2-2.html");
                     return;
                 }
                 else {
                     if (success_ref) { val_failure("You should label the CENTER of a rotation symmetry."); }
-                    else if (success_rot) { val_failure("You should label the TWO END POINTS of a reflection symmetry."); }
-                    else { val_failure("You should label the CENTER of a rotation symmetry and the TWO END POINTS of a reflection symmetry."); }
+                    else if (success_rot) { val_failure("You should label the TWO END-POINTS of a reflection symmetry axis "); }
+                    else { val_failure("You should label the CENTER of a rotation symmetry and the TWO END-POINTS of a reflection symmetry axis"); }
                     return;
                 }
 

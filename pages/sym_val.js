@@ -126,7 +126,7 @@ function val_success(message, redirect_url) {
         location.href = redirect_url;
     })
 
-    $("div#correct").fadeTo(1500, 1.0).slideUp("fast", function(){
+    $("div#correct").fadeTo(5000, 1.0).slideUp("fast", function(){
         // $("div#incorrect").slideUp(500);
         clearAll($(".labeling-tool")[0]);
         annos[0] = { "Rotation": [], "Reflection": [] };
@@ -139,7 +139,7 @@ function val_success(message, redirect_url) {
 
 function val_failure(message) {
     $("div#body-part").prepend(`
-            <div class="alert alert-danger fade in alert-dismissible" id="incorrect">
+            <div class="alert alert-danger alert-dismissible" id="incorrect">
             <strong>Incorrect!</strong> ${message}
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -157,7 +157,7 @@ function val_failure(message) {
             reset_sym_option(element);
         });
     })
-    $("div#incorrect").fadeTo(1500, 1.0).slideUp("fast", function(){
+    $("div#incorrect").fadeTo(5000, 1.0).slideUp("fast", function(){
         // $("div#incorrect").slideUp(500);
         clearAll($(".labeling-tool")[0]);
         annos[0] = { "Rotation": [], "Reflection": [] };

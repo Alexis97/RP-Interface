@@ -120,12 +120,12 @@
 
                 if (!validate_ref(user_label[0], ref_gt)) {
                     success_flag = false;
-                    val_failure("You should label the TWO END POINTS of a reflection symmetry.");
+                    val_failure("You should label the TWO END-POINTS of a reflection symmetry axis");
                     return;
                 }
 
                 if (success_flag) {
-                    val_success("After closing this message you will be redirect to the next training page.", "train2-1.html");
+                    val_success("After closing this message you will be redirected to the next training page.", "train2-1.html");
                     return;
                 }
             });

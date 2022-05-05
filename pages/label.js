@@ -99,6 +99,8 @@ $(document).ready(function () {
 
     // * setup canvas draw functions
     $(".labeling-tool").mousedown(function (event) {
+        // hide the alert if any
+        $(".alert").alert('close');
         // compute the relative coordinates in range [0,1]
         var relX = event.pageX - $(this).offset().left;
         var relY = event.pageY - $(this).offset().top;
