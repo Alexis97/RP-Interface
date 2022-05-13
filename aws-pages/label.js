@@ -23,6 +23,7 @@ var img_id = 0;
 var img_size = [];
 var annos = [];
 var sym_types = [];
+var option = "";
 var prev_XY = [];
 
 var num_skipped = 0;
@@ -39,64 +40,9 @@ $(document).ready(function () {
     //     console.log(img_urls);
     // });
 
-    // * setup updates to the arrangement
-    $("div.container > div#instructions").html(
-        `
-        <h4 class="text-center"><b> Goal of the study: to find out how humans perceive symmetries in real
-                            world scenes </b>
-                    </h4>
-                    <h5 class="text-center"> Note: Real world symmetries may <strong
-                                style="color: red;font-size: 120%;">NOT</strong> appear
-                        perfectly. </h5>
-                    <h4> <b>Instructions:</b> </h4>
-                    <ol>
-                        <li>
-                            Need a refresher on "<b>Symmetry</b>"? Copy and open this link: <a
-                               href="https://alexis97.github.io/RP-Interface/pages/tutorial.html" target="_blank">
-                                https://alexis97.github.io/RP-Interface/pages/tutorial.html</a>
-                        </li>
-                        <li> <b>Label every symmetry</b> you <b>perceive</b> on each image.</li>
-                        <li> <b>Skipping an image</b> (not labeling) is OK if no perceived symmetries are found.</li>
-                        <li> Choose which type of symmetry to be labeled first. </li>
-                        <li> Do not use mobile device to view this page. </li>
-                    </ol>
-        `
-    )
-
 
     // $($("div.label-panel > p")[0]).replaceWith("");
 
-  
-
-    $("div#body-part > div#actions").html(
-        `
-        <h4> <b>Actions:</b> </h4>
-                        <ol>
-                            <li>
-                                <div class="thumbnail">
-                                <p><button type="button" class="btn btn-lg dummy-button" disabled>Label SYMMETRY</button></p>
-                                <!-- <h3><span class="label label-primary">LABEL SYMMETRY </span> </h3> -->
-                                <!-- <h5>LABEL SYMMETRY </h5> -->
-                                <div class="">
-                                    <ul class="list-group" id="option-left">
-                                        <a class="list-group-item" id="rot">-> Rotation center (one point/click)</a>
-                                        <a class="list-group-item" id="ref">-> Reflection axis (two end points/clicks)</a>
-                                    </ul>
-                                </div>
-                                </div>
-                            </li>
-                            <li> <p><button type="button" class="btn btn-lg btn-warning clear" id="left">Clear Last Label</button></p> </li>
-                            <li> <p><button type="button" class="btn btn-lg btn-primary" id="skip">Skip This Image</button></p> </li>
-                            <li> <p><button type="button" class="btn btn-lg btn-success" id="submit">Submit Your SYMMETRY Labels</button></p> </li>
-                        </ol>
-        `);
-
-    $("a#rot").text("→ Rotation Symmetry: click one point (rotation center)");
-    $("a#ref").text("→ Reflection Symmetry: click two points (reflection axis)");
-    $("a#rot").css({ "background-color": active_list_bg_colors["rot"] });
-    $("a#ref").css({ "background-color": active_list_bg_colors["ref"] });
-
-    $("button.dummy-button").css({ "color": "white", "background-color": "#666060" });
 
     // * read the image url
     var img_url = $("#img-url").text();
@@ -112,25 +58,8 @@ $(document).ready(function () {
         $(this).addClass("active");
         $(this).css("background-color", "");
         $(this).siblings().removeClass("active");
+        option = $(this).attr('id');
         
-
-        var id = -1;
-        if ($(this).parent().attr('id') == "option-left")
-            id = 0;
-        else if ($(this).parent().attr('id') == "option-right")
-            id = 1;
-
-        if ($(this).attr('id') == "rot") {
-            $(this).siblings().css({ "background-color": active_list_bg_colors["ref"]});
-            sym_types[id] = "rot";
-        }
-
-        else if ($(this).attr('id') == "ref")
-        {
-            $(this).siblings().css({ "background-color": active_list_bg_colors["rot"]});
-            sym_types[id] = "ref";
-        }
-            
     });
 
 
@@ -155,39 +84,7 @@ $(document).ready(function () {
         setupCanvas(canvas, this);
     });
 
-    // * setup canvas draw functions
-    $(".labeling-tool").mousedown(function (event) {
-        // compute the relative coordinates in range [0,1]
-        var relX = event.pageX - $(this).offset().left;
-        var relY = event.pageY - $(this).offset().top;
-        relX /= this.getBoundingClientRect().width;
-        relY /= this.getBoundingClientRect().height;
-        // console.log("Mouse down!" + "(" + relX + "," + relY + ")");
-
-        // check the symmetry type
-        var id = getCanvasId(this);
-
-        if (sym_types[id] == "rot") {
-            // draw a point for rotation symmetry
-            drawPoint(this, relX, relY, color = 'red', board_color = 'yellow');
-            addRotAnno(this, relX, relY);
-        }
-        else if (sym_types[id] == "ref") {
-            // first, draw a point to indicate the line end
-            drawPoint(this, relX, relY, color = 'green', board_color = 'yellow');
-
-            // second, if this is the second click, draw a line for reflection symmetry
-            if (prev_XY[id][0] == -1) {
-                prev_XY[id] = [relX, relY];
-            }
-            else {
-                drawLine(this, prev_XY[id][0], prev_XY[id][1], relX, relY, color = 'green', board_color = 'yellow');
-                addRefAnno(this, prev_XY[id][0], prev_XY[id][1], relX, relY);
-                prev_XY[id] = [-1, -1]
-            }
-        }
-    });
-
+   
     // * setup clear button
     $(".btn.clear").click(function () {
         // console.log(this);
