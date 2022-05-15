@@ -92,8 +92,9 @@ function ref_sym_dist_d(A, B) {
 }
 
 function validate_rot(user_label, gt, th_dist = 0.05) {
-    console.log("label:", user_label, "gt:", gt);
     // * validate a labeled rotation with ground truth
+    console.log("label:", user_label, "gt:", gt);
+
     if (rot_sym_dist(user_label, gt) > th_dist) { return false; }
     else { return true; }
 }
@@ -124,7 +125,7 @@ function val_success(message, redirect_url) {
         sym_types[0] = ('None');
         prev_XY[0] = ([-1, -1]);
 
-        location.href = redirect_url;
+        rewrite($("div#container"), redirect_url);
     })
 
     $("div#correct").fadeTo(5000, 1.0).slideUp("fast", function(){
@@ -134,7 +135,7 @@ function val_success(message, redirect_url) {
         sym_types[0] = ('None');
         prev_XY[0] = ([-1, -1]);
 
-        location.href = redirect_url;
+        rewrite($("div#container"), redirect_url);
     });
 }
 
