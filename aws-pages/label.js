@@ -93,6 +93,7 @@ $(document).ready(function () {
 
     $("a#rot").text("→ Rotation Symmetry: click one point (rotation center)");
     $("a#ref").text("→ Reflection Symmetry: click two points (reflection axis)");
+    
     $("a#rot").css({ "background-color": active_list_bg_colors["rot"] });
     $("a#ref").css({ "background-color": active_list_bg_colors["ref"] });
 

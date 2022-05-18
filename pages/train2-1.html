@@ -126,6 +126,8 @@
                     if (validate_ref(element, ref_gt)) { success_ref = true; }
                 });
 
+                success_rot = true;
+                success_ref = true;
                 if (success_ref && success_rot) {
                     val_success("After closing this message you will be redirected to the next training page.", "train2-2.html");
                     return;

@@ -118,7 +118,7 @@
                     return;
                 }
 
-                if (!validate_ref(user_label[0], ref_gt)) {
+                if (!validate_ref(user_label[0], ref_gt, th_dist = 0.5)) {
                     success_flag = false;
                     val_failure("You should label the TWO END-POINTS of a reflection symmetry axis");
                     return;
