@@ -1,17 +1,19 @@
 ''' Some scripts for dataset '''
 import os, glob, csv, shutil
 
-def get_csv_list(img_dir, csv_path, root_dir = '', row = ['image_url']):
+def get_csv_list(img_dir, csv_path, root_dir = ''):
     ''' Generate Image List from a folder (as a csv format) '''
 
     # writing to csv file 
     with open(csv_path, 'w', newline='') as f: 
         # creating a csv writer object 
-        writer = csv.writer(f, ) 
-        writer.writerow(row)
-            
+        writer = csv.writer(f) 
+        # writer.writerow(['image_url', 'index'])
+        writer.writerow(['image_url', 'index'])    
         # writing the data rows 
-        rows = [[root_dir + img_name] for img_name in os.listdir(img_dir)]
+        # rows = [[root_dir + img_name, idx] for idx, img_name in enumerate(os.listdir(img_dir)) ]
+
+        rows = [[root_dir + img_name] for idx, img_name in enumerate(os.listdir(img_dir)) ]
         print(rows)
         writer.writerows(rows)
 
@@ -29,10 +31,11 @@ if __name__ == "__main__":
     get_csv_list(
         img_dir = 'E:\Lab Work\Human Research\Dataset Collection\Iter-1', 
         csv_path = "E:\Lab Work\Human Research\Dataset Collection\Iter-1.csv",
-        root_dir='https://sym-rp-data-collection.s3.amazonaws.com/Dataset/Iter-1/')
+        # root_dir='s3://sym-rp-data-collection/Dataset/Iter-1/'
+        root_dir='https://s3.amazonaws.com/sym-rp-data-collection/Dataset/Iter-1/'
+        )
         
     # add_index(
     #     img_dir = 'E:\Lab Work\Human Research\Dataset\Iter-1', 
     #     new_img_dir = 'E:\Lab Work\Human Research\Dataset\Iter-1-rename', 
     #     start_index= 0)
-
