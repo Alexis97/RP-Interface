@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Symmetry Labeling</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="label.css">
+    <!-- <link rel="stylesheet"
+          href="https://sagemaker-studio-f5iy3bqk9dc.s3.us-east-2.amazonaws.com/user+interface/Sym/label.css"> -->
+
+    <style>
+        #parent {
+            width: 1000px;
+            height: auto;
+            overflow: hidden;
+            position: relative;
+            background: #f5f5f5;
+        }
+
+        #child {
+            margin: auto;
+        }
+
+        #myCanvas {
+            position: absolute;
+        }
+
+        #pic {
+            width: 100%;
+            height: auto;
+        }
+
+        #text {
+            width: 1000px;
+        }
+
+        .btn:hover {
+            text-shadow: 0px 0px 1px black;
+        }
+
+        .fixed_width {
+            width: 130px !important;
+        }
+
+        #label_class {
+            width: 200px;
+            float: right;
+        }
+
+        #text {
+            margin-bottom: 20px;
+        }
+
+        #buttons {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <body>
+        <crowd-form id="form">
+            <div class="container-fluid">
+
+                <div class="page-header" id="instructions">
+                    <h4 class="text-center"><b> Goal of the study: to find out how humans perceive symmetries in real
+                            world scenes </b>
+                    </h4>
+                    <h5 class="text-center"> Note: Real world symmetries may <strong
+                                style="color: red;font-size: 120%;">NOT</strong> appear
+                        perfectly. </h5>
+                    <h4> <b>Instructions:</b> </h4>
+                    <ol>
+                        <li>
+                            Need a refresher on "<b>Symmetry</b>"? Copy and open this link: <a
+                               href="https://alexis97.github.io/RP-Interface/pages/tutorial.html" target="_blank">
+                                https://alexis97.github.io/RP-Interface/pages/tutorial.html</a>
+                        </li>
+                        <li> <b>Label every symmetry</b> you <b>perceive</b> on each image.</li>
+                        <li> <b>Skipping an image</b> (not labeling) is OK if no perceived symmetries are found.</li>
+                        <li> Choose which type of symmetry to be labeled first. </li>
+                        <li> Do not use mobile device to view this page. </li>
+                    </ol>
+                </div>
+
+
+                <div class="row" id="body-part">
+
+                    <div>
+                        <p data-testid="buttons" id="buttons">
+                            <input data-testid="mode_button" class="btn btn-info fixed_width" name="mode_button" id="mode_button"
+                                   type="button" value="Dot Mode" />
+                            <span id="delete_flip" data-testid="delete_flip" class="btn-group btn-group-toggle"
+                                  data-toggle="buttons">
+                                <label class="btn btn-outline-secondary" type="radio" name="options"
+                                       data-testid="delete_button" id="delete_button" autocomplete="off" checked>
+                                    Delete
+                                </label>
+                                <label class="btn btn-primary" type="radio" name="options" data-testid="annotate_button"
+                                       id="annotate_button" autocomplete="off">
+                                    Annotate
+                                </label>
+                            </span>
+                            <input class="btn btn-secondary" data-testid="undo_button" name="undo_button" id="undo_button" type="button"
+                                   value="Undo" />
+                            <input class="btn btn-danger" data-testid="reset_button" name="reset_button" id="reset_button" type="button"
+                                   value="Reset" />
+                            <input class="btn btn-warning" data-testid="reposition_button" name="reposition_button" id="reposition_button"
+                                   type="button" value="Reposition" />
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <p>
+                    <label for="transparency">Transparency percentage</label>
+                    <input type="range" min="0" max="100" class="range-field my-4 w-25"
+                           data-testid="transparency_slider" name = "transparency_slider" id="transparency_slider" />
+                </p>
+
+                <div>
+                    <input id="coordinates" name="coordinates" type="hidden" />
+                </div>
+
+            </div>
+            <div class="row">
+
+
+
+                <div class="col-md-10" id="parent">
+                    <div id="child">
+                        <div id="img-url" style="display: none"> {{ task.input.source-ref | grant_read_access }} </div>
+                        <canvas data-testid="canvas" id="myCanvas"></canvas>
+                        <img data-testid="pic" id="pic" src="../figures/tutorial/Butterfly.jpg" />
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <select data-testid="label_class" name="label_class" id="label_class" class="form-control"></select>
+                </div>
+
+                <!-- Prevent crowd-form from creating its own button -->
+                <!-- <crowd-button form-action="submit" style="display: none;"></crowd-button> -->
+            </div>
+
+
+
+            </div>
+        </crowd-form>
+    </body>
+
+    <script src="https://fastly.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+
+
+    <!-- <script src="label.js"></script> -->
+    <script src="turker.js"></script>
+    <!-- <script src="https://sagemaker-studio-f5iy3bqk9dc.s3.us-east-2.amazonaws.com/user+interface/Sym/label.js"></script> -->
+    <!-- <script src="https://github.com/Alexis97/RP-Interface/blob/symmetry-labeling/aws-pages/label.js"></script>  -->
+    <script src="https://assets.crowd.aws/crowd-html-elements.js"></script>
+</body>
+
+</html>
