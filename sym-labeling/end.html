@@ -1,0 +1,50 @@
+<div class="page-header">
+    <!-- <h1>Label one symmetry per image.</h1> -->
+    <h3 class="text-center" id="congrats">
+        Thank you for your interest in the study. You have labeled {num_labeled} images making ${money}.
+    </h3>
+    <h3 class="text-center">
+        We welcome comments and suggestions on how to make the task and the website better.
+    </h3>
+
+    <p class="lead"></p>
+
+</div>
+
+<div class="page-header">
+    <h3> Comments: </h3>
+    <div class="row justify-content-md-center">
+        <div class="col col-lg-3">
+        </div>
+        <div class="col col-lg-6">
+            <textarea class="form-control" id="suggestions" rows="5"></textarea>
+        </div>
+        <div class="col col-lg-3">
+        </div>
+    </div>
+
+
+</div>
+
+<div class="page-header">
+    <h3 class="text-center"> You must submit the results in order to get paid for the hit </h3>
+    <p class="text-center">
+        <button type="button" class="btn btn-lg btn-primary" id="submit">Submit Results to Mechanical
+            Turk</button>
+    </p>
+    <h3 class="text-center"> Thank you for your time </h3>
+</div>
+
+<script>
+    var money_per_img = 0.2;
+
+    $(document).ready(function () {
+        $("#congrats").text(`Thank you for your interest in the study. You have labeled ${num_labeled} images making $${num_labeled * money_per_img}.`)
+
+        // * setup submit click
+        $(".btn#submit").click(function () {
+            var text = $('textarea#suggestions').val();
+            console.log(text);
+        });
+    });
+</script>
