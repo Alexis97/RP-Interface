@@ -39,7 +39,9 @@ $(document).ready(function () {
     canvas = document.getElementById("myCanvas");
     ctx = canvas.getContext("2d");
     img = document.getElementById("pic");
-    modeButton = document.getElementById("mode_button");
+    // modeButton = document.getElementById("mode_button");
+
+    modeButton = $('button#mode_button');
 
     canvas.width = img.width;
     canvas.height = img.height;
@@ -70,7 +72,7 @@ $(document).ready(function () {
     };
 
     mode = modes[0];
-    modeButton.value = "Mode: " + capitalize(mode);
+    modeButton.text("Mode: " + capitalize(mode));
 
     // * generate select list options
     classSelection = $("select#label_class")[0];
