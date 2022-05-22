@@ -3,7 +3,7 @@ let anchorX, anchorY, dragX, dragY, mouseX, mouseY;
 let dragged, dragStart, delta, scaleRatio, scaleDiff;
 let child, parent, canvas, ctx, img;
 let annotations, classSelection;
-let transparency_level = 0.5;
+let transparency_level = 0.25;
 let dragOffsetX = 0;
 let dragOffsetY = 0;
 let scalingOffsetX = 0;
@@ -27,27 +27,39 @@ let rightClick = false;
 
 let lineWidth = 4;
 
-let classes = ["Recurring Pattern 1", "Recurring Pattern 2"];
+let classes = [];
+let instsNum = {};     // number of instance for each class
 let currentLink = { class: [], mode: "link", data: [] };
 let currentPolygon = { class: [], mode: "polygon", data: [] };
 let currentBbox = { class: [], mode: "bbox", data: [] };
 
-$(document).ready(function () {
+let classNum = 0;
+let selectedRPIndex = 0;
 
+let distinctColors = ['(230, 25, 75)', '(60, 180, 75)', '(255, 225, 25)', '(0, 130, 200)', '(245, 130, 48)', '(145, 30, 180)', '(70, 240, 240)', '(240, 50, 230)', '(210, 245, 60)', '(250, 190, 212)', '(0, 128, 128)', '(220, 190, 255)', '(170, 110, 40)', '(255, 250, 200)', '(128, 0, 0)', '(170, 255, 195)', '(128, 128, 0)', '(255, 215, 180)', '(0, 0, 128)', '(128, 128, 128)'];       // * 20 distinct colors
+
+let classMaxNum = distinctColors.length;
+
+$(document).ready(function () {
+    console.log($('#parent'));
     parent = document.getElementById("parent");
     child = document.getElementById("child");
     canvas = document.getElementById("myCanvas");
     ctx = canvas.getContext("2d");
     img = document.getElementById("pic");
-    modeButton = document.getElementById("mode_button");
+
+    modeButton = $("#mode_button")
 
     canvas.width = img.width;
     canvas.height = img.height;
     canvas.style.cursor = "crosshair";
 
+    classSelection = $("select#label_class")[0];
+
+    // * setup the hidden instruction
     $("#instruction").slideUp(0);
 
-    $("#title").click(function () {
+    $("#instruction_button").click(function () {
         $("#instruction").clearQueue();
         $("#instruction").slideToggle();
     });
@@ -70,18 +82,11 @@ $(document).ready(function () {
     };
 
     mode = modes[0];
-    modeButton.value = "Mode: " + capitalize(mode);
 
-    // * generate select list options
-    classSelection = $("select#label_class")[0];
-    setRPClass();
+    modeButton.text("Mode: " + capitalize(mode));
 
-    // * initialize slider
-    let slider = document.getElementById("transparency_slider");
-    slider.oninput = function () {
-        transparency_level = this.value / 100.0;
-        updateGraphics();
-    };
+    // * generate RP list options
+    addRPClass(0);
 
     // * initialize buttons
     $("#reset_button").click(reset);
@@ -90,6 +95,14 @@ $(document).ready(function () {
     $("#mode_button").click(toggleMode);
     $("#delete_button").click(() => setDeleteMode(true));
     $("#annotate_button").click(() => setDeleteMode(false));
+
+    $("#add_rp_button").click(() => addRPClass(-1));
+    $("#remove_rp_button").click(removeRPClass);
+
+    $("#submit").click(function () {
+        $("crowd-form")[0].submit();
+    });
+
 
     // document.getElementById("submitButton").disabled = false;
     // document
@@ -106,7 +119,7 @@ $(document).ready(function () {
 
     $("img#pic").on('load', function () {
         var canvas = $(this).siblings("canvas")[0];
-        setupCanvas(canvas, this);
+        // setupCanvas(canvas, this);
     });
 
     canvas.addEventListener("mouseout", function (evt) {
@@ -156,12 +169,7 @@ $(document).ready(function () {
         dragStart = false;
         updateGraphics();
 
-        if (annotations.length == 0) {
-            document.getElementById("coordinates").value = "";
-        } else {
-            document.getElementById("coordinates").value =
-                JSON.stringify(annotations);
-        }
+
     });
 
     canvas.addEventListener("mousemove", function (evt) {
@@ -202,19 +210,122 @@ $(document).ready(function () {
 
 // end of ready function
 
-function setRPClass(selectedIndex = 0){
+function resizeCanvas() {
+    // * resize the canvas to avoid scrolling
+    $(img).width('50%');
+    canvas.style.width = 
+    $(canvas).width = $(img).width;
+    $(canvas).height = $(img).height;
 
-    $(classSelection).html("");
-    classes.forEach((theClass) => {
-        let hue = Math.abs(theClass.hashCode() % 360) / 360;
-        let color = [hue, 1.0, 1.0];
-        $(classSelection).append(`<option>${theClass}</option>`)
-        colors[theClass] = color;
+    // $(img).width = $(canvas).width;
+    // $(img).height = $(canvas).height;
+}
+
+
+function getRPIndex(className) {
+    let idx = className.match(/\d+$/)[0] - 1;
+    return idx;
+}
+
+function selectRP() {
+    // * get the RP index
+    selectedRPIndex = getRPIndex($(this).attr('name'));
+    // * active the current RP button
+    $(this).parent().children().removeClass('active');
+    $(this).parent().siblings().children().removeClass('active');
+    $(this).addClass('active');
+
+    updateGraphics();
+}
+
+function addRPClass(idx = -1) {
+    if (classNum < classMaxNum) {
+        classNum += 1;
+        classes.push(`Recurring Pattern ${classNum}`);
+        if (idx == -1)
+            setRPClass(selectedRPIndex + 1);
+        else
+            setRPClass(idx);
+    }
+
+}
+
+function removeRPClass() {
+    // * remove the selected RP
+    classNum -= 1;
+    classNum = Math.max(1, classNum);
+
+    classes = [];
+
+
+    for (let i = 0; i < classNum; i++) {
+        classes.push(`Recurring Pattern ${i + 1}`);
+    }
+
+
+
+    // * remove the corresponding annotations
+    let new_anno = [];
+    annotations.forEach(item => {
+        if (item['class'] != `Recurring Pattern ${selectedRPIndex + 1}`) {
+            let idx = getRPIndex(item['class']);
+            if (idx > selectedRPIndex)
+                item['class'] = `Recurring Pattern ${idx}`;
+            new_anno.push(deep_copy(item));
+        }
+    });
+    // console.log(new_anno);
+    annotations = new_anno;
+
+    selectedRPIndex = Math.max(0, selectedRPIndex);
+    selectedRPIndex = Math.min(classNum - 1, selectedRPIndex);
+    setRPClass(selectedRPIndex);
+}
+
+function setRPClass(selectedIndex = 0) {
+
+    $('.rp_container').html("");
+    classes.forEach((theClass, idx) => {
+        colors[theClass] = distinctColors[idx];
+        $(`#${idx%2}.rp_container`).append(`
+        <button type="button" class="btn rp_button" name="${theClass}" id="${theClass}"><span style="color:rgb${colors[theClass]};" class="bi bi-square-fill"> </span> ${theClass}</button>
+        `);
     });
 
-    classSelection.size = Math.min(10, classes.length);
-    classSelection.selectedIndex = selectedIndex;
+    let rp_button = $('.rp_button');
+    rp_button.click(selectRP);
+    //  rp_button[selectedIndex].classList.add('active');
+    selectedRPIndex = selectedIndex;
+    activeRP();
     updateGraphics();
+}
+
+function setRPInstNum() {
+    // * add the rp_inst number to each RP button for convenience
+    let rp_button = $('.rp_button');
+    rp_button.each(function(){
+        let theClass = $(this).attr('name');
+        let instNum = 0;
+        if (theClass in instsNum) {instNum = instsNum[theClass];}
+        $(this).html(`<span style="color:rgb${colors[theClass]};" class="bi bi-square-fill"> </span> ${theClass} (${instNum})`);
+    });
+
+}
+
+function activeRP() {
+    let parent_idx = selectedRPIndex%2;
+    let child_idx = Math.floor(selectedRPIndex / 2);
+    $(`#${parent_idx}.rp_container .rp_button`)[child_idx].classList.add('active');
+}
+
+
+function highlightRP() {
+    // * highlight the annotations belonging to the current RP
+
+    // * get the RP index
+    let rpIdx = getRPIndex($(this).text());
+
+
 }
 
 function drawPolygonOutline(corners) {
@@ -256,7 +367,7 @@ function toggleMode() {
     }
     setDeleteMode(false);
     mode = modes[modeNum];
-    modeButton.value = "Mode: " + capitalize(mode);
+    modeButton.text("Mode: " + capitalize(mode));
     clearCurrentAnn();
 }
 
@@ -317,6 +428,11 @@ function reset() {
     dragStart = false;
     dragged = false;
     setDeleteMode(false);
+
+    classes = [];
+    classNum = 0;
+    selectedRPIndex = 0;
+    addRPClass(0);
 }
 
 function reposition() {
@@ -369,7 +485,8 @@ function clearAnnotations() {
 }
 
 function getClass() {
-    return classSelection[classSelection.selectedIndex].innerHTML;
+    return classes[selectedRPIndex];
+    // return $('#rp_container .rp_button')[selectedRPIndex].innerHTML;
 }
 
 function getColor(annotation, options) {
@@ -380,70 +497,46 @@ function getColor(annotation, options) {
     ) {
         return [0.5, 0.5, 0.5];
     } else {
-        return className2Color(annotation.class);
+        return rgbColor(colors[annotation.class]);
     }
 }
 
-function drawDot(annotation, options) {
-    const [r, g, b] = getColor(annotation, options);
-    const corners = annotation.data;
-    ctx.fillStyle = "rgba(" + r + "," + g + "," + b + ", 1.0)";
-    ctx.lineWidth = lineWidth;
-    ctx.fillRect(
-        corners[0] - dotSize / 2,
-        corners[1] - dotSize / 2,
-        dotSize,
-        dotSize
-    );
+function rgbColor(rgbString) {
+    // * convert rgb color to [r, g, b]
+    return rgbString.match(/\d+/g);
 }
 
-function drawLink(annotation, options) {
-    const [r, g, b] = getColor(annotation, options);
-    const corners = annotation.data;
-    ctx.fillStyle = "rgba(" + r + "," + g + "," + b + ", 1.0)";
-    ctx.strokeStyle = "rgba(" + r + "," + g + "," + b + ", 1.0)";
-    ctx.beginPath();
-    ctx.moveTo(corners[0][0], corners[0][1]);
-    if (options.current) {
-        lastLocation = [correctX, correctY];
-    } else {
-        lastLocation = corners[1];
-    }
-    ctx.lineTo(lastLocation[0], lastLocation[1]);
-    ctx.closePath();
-    ctx.stroke();
-    ctx.fillRect(
-        corners[0][0] - dotSize / 2,
-        corners[0][1] - dotSize / 2,
-        dotSize,
-        dotSize
-    );
-    ctx.fillRect(
-        lastLocation[0] - dotSize / 2,
-        lastLocation[1] - dotSize / 2,
-        dotSize,
-        dotSize
-    );
-}
 
 function drawPolygon(annotation, options) {
-    const [r, g, b] = getColor(annotation, options);
+
     const corners = annotation.data;
-    ctx.fillStyle = "rgba(" + r + "," + g + "," + b + ", " + transparency_level + ")";
+
+    const [r, g, b] = getColor(annotation, options);
+
+
+    if (options.rpIdx == selectedRPIndex) {
+        // * set highlight border
+        ctx.fillStyle = "rgba(1, 1, 1, 0)";
+        ctx.strokeStyle = `rgba(255, 255, 255, 1.0)`;
+        ctx.lineWidth = lineWidth + 2;
+        fillPolygon(corners);
+    }
+
+    ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${transparency_level})`;
     ctx.lineWidth = lineWidth;
-    ctx.strokeStyle = "rgba(" + r + "," + g + "," + b + ", 1.0)";
+    ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, 1.0)`;
+
     if (options.current) {
         drawPolygonOutline(corners);
     } else {
         fillPolygon(corners);
     }
+
+
 }
 
 function drawBbox(annotation, options) {
-    const [r, g, b] = getColor(annotation, options);
-    ctx.fillStyle = "rgba(1, 1, 1, 0)";
-    ctx.lineWidth = lineWidth;
-    ctx.strokeStyle = "rgba(" + r + "," + g + "," + b + ", 1.0)";
+
     const xmin = annotation.data[0][0];
     const ymin = annotation.data[0][1];
     let xmax, ymax;
@@ -460,30 +553,44 @@ function drawBbox(annotation, options) {
         [xmax, ymax],
         [xmin, ymax],
     ];
+
+
+    const [r, g, b] = getColor(annotation, options);
+    if (options.rpIdx == selectedRPIndex) {
+        // * set highlight border
+        ctx.fillStyle = "rgba(1, 1, 1, 0)";
+        ctx.strokeStyle = `rgba(255, 255, 255, 1.0)`;
+        ctx.lineWidth = lineWidth + 2;
+        fillPolygon(corners);
+    }
+
+    ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${transparency_level})`;
+    ctx.lineWidth = lineWidth;
+    ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, 1.0)`;
     fillPolygon(corners);
 }
 
 function updateGraphics() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+
+    instsNum = [];
     annotations.forEach((ann, idx) => {
+        let rpIdx = getRPIndex(ann.class);
+        if (ann.class in instsNum) {
+            instsNum[ann.class] += 1;
+        }
+        else {
+            instsNum[ann.class] = 1;
+        }
         switch (ann.mode) {
-            case "dot":
-                drawDot(ann, { current: false, idx });
-                break;
-            case "link":
-                drawLink(ann, { current: false, idx });
-                break;
             case "polygon":
-                drawPolygon(ann, { current: false, idx });
+                drawPolygon(ann, { current: false, idx, rpIdx });
                 break;
             case "bbox":
-                drawBbox(ann, { current: false, idx });
+                drawBbox(ann, { current: false, idx, rpIdx });
         }
     });
-
-    if (currentLink.data.length != 0) {
-        drawLink(currentLink, { current: true });
-    }
 
     if (currentPolygon.data.length != 0) {
         drawPolygon(currentPolygon, { current: true });
@@ -492,6 +599,18 @@ function updateGraphics() {
     if (currentBbox.data.length != 0) {
         drawBbox(currentBbox, { current: true });
     }
+
+    
+    if (annotations.length == 0) {
+        document.getElementById("coordinates").value = "";
+    } else {
+        document.getElementById("coordinates").value =
+            JSON.stringify(annotations);
+    }
+
+    document.getElementById("imageSize").value = `[${$(img).width()}, ${$(img).height()}]`;
+
+    setRPInstNum();
 }
 
 // depending on mode, either undo deletion or undo annotation
@@ -502,17 +621,7 @@ function undo() {
         }
     } else {
         switch (mode) {
-            case "dot":
-                annotations.pop();
-                break;
-            case "link":
-                if (currentLink.data.length == 0) {
-                    annotations.pop();
-                } else {
-                    currentLink.data = new Array();
-                    firstPoint = true;
-                }
-                break;
+
             case "polygon":
                 if (currentPolygon.data.length == 0) {
                     annotations.pop();
@@ -572,6 +681,8 @@ window.addEventListener(
 );
 
 let handleScroll = function (evt) {
+    
+
     getCorrectCoords(evt);
     delta = evt.wheelDelta ? evt.wheelDelta / 40 : evt.detail ? -evt.detail : 0;
 
@@ -593,6 +704,13 @@ let handleScroll = function (evt) {
     translateTransform[0] = translateTransform_raw[0] / newScale;
     translateTransform[1] = translateTransform_raw[1] / newScale;
     updateTransform();
+
+    // * disable page scroll
+    TopScroll = window.pageYOffset || document.documentElement.scrollTop;
+    LeftScroll = window.pageXOffset || document.documentElement.scrollLeft;
+    window.onscroll = function () {
+        window.scrollTo(LeftScroll, TopScroll);
+    };
 };
 
 function updateTransform() {
@@ -608,6 +726,10 @@ function updateTransform() {
 }
 
 function getCorrectCoords(evt) {
+    // console.log(parent.offsetParent.offsetParent);
+    // mouseX = evt.pageX - parent.offsetLeft;
+    // mouseY = evt.pageY - parent.offsetTop;
+
     mouseX =
         evt.clientX - parent.offsetLeft + parent.scrollLeft + window.pageXOffset;
     mouseY =
@@ -680,63 +802,4 @@ function get_avg_dist(corners) {
         avg_dist_array.push(getDist([correctX, correctY], corners[j]));
     }
     return mean(avg_dist_array);
-}
-
-String.prototype.hashCode = function () {
-    let hash = 0;
-    for (let i = 0; i < this.length; i++) {
-        hash += Math.pow(this.charCodeAt(i) * 31, this.length - i);
-        hash = hash & hash; // Convert to 32bit integer
-    }
-    return hash;
-};
-
-function HSVtoRGB(h, s, v) {
-    // Borrowed from https://stackoverflow.com/a/17243070/4970438
-    let r, g, b, i, f, p, q, t;
-    if (arguments.length === 1) {
-        (s = h.s), (v = h.v), (h = h.h);
-    }
-    i = Math.floor(h * 6);
-    f = h * 6 - i;
-    p = v * (1 - s);
-    q = v * (1 - f * s);
-    t = v * (1 - (1 - f) * s);
-    switch (i % 6) {
-        case 0:
-            (r = v), (g = t), (b = p);
-            break;
-        case 1:
-            (r = q), (g = v), (b = p);
-            break;
-        case 2:
-            (r = p), (g = v), (b = t);
-            break;
-        case 3:
-            (r = p), (g = q), (b = v);
-            break;
-        case 4:
-            (r = t), (g = p), (b = v);
-            break;
-        case 5:
-            (r = v), (g = p), (b = q);
-            break;
-    }
-    return {
-        r: Math.round(r * 255),
-        g: Math.round(g * 255),
-        b: Math.round(b * 255),
-    };
-}
-
-function className2Color(className) {
-    let color = colors[className];
-    let h = color[0];
-    let s = color[1];
-    let v = color[2];
-    let rgbColors = HSVtoRGB(h, s, v);
-    let r = rgbColors.r.toString();
-    let g = rgbColors.g.toString();
-    let b = rgbColors.b.toString();
-    return [r, g, b];
 }
