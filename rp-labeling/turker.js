@@ -34,14 +34,13 @@ let currentPolygon = { class: [], mode: "polygon", data: [] };
 let currentBbox = { class: [], mode: "bbox", data: [] };
 
 let classNum = 0;
-let selectedRPIndex = 0;
+let selectedRPIndex = -1;
 
 let distinctColors = ['(230, 25, 75)', '(60, 180, 75)', '(255, 225, 25)', '(0, 130, 200)', '(245, 130, 48)', '(145, 30, 180)', '(70, 240, 240)', '(240, 50, 230)', '(210, 245, 60)', '(250, 190, 212)', '(0, 128, 128)', '(220, 190, 255)', '(170, 110, 40)', '(255, 250, 200)', '(128, 0, 0)', '(170, 255, 195)', '(128, 128, 0)', '(255, 215, 180)', '(0, 0, 128)', '(128, 128, 128)'];       // * 20 distinct colors
 
 let classMaxNum = distinctColors.length;
 
 $(document).ready(function () {
-    console.log($('#parent'));
     parent = document.getElementById("parent");
     child = document.getElementById("child");
     canvas = document.getElementById("myCanvas");
@@ -86,7 +85,7 @@ $(document).ready(function () {
     modeButton.text("Mode: " + capitalize(mode));
 
     // * generate RP list options
-    addRPClass(0);
+    // addRPClass(0);
 
     // * initialize buttons
     $("#reset_button").click(reset);
@@ -135,6 +134,7 @@ $(document).ready(function () {
         anchorY = evt.clientY;
         dragged = false;
         dragStart = true;
+        if (selectedRPIndex == -1 ) {return;}
         if (mode == "bbox" && !rightClick && !getDeleteMode()) {
             currentBbox.class = getClass();
             currentBbox.data = new Array();
@@ -145,6 +145,7 @@ $(document).ready(function () {
     canvas.addEventListener("pointerup", function (evt) {
         timeDownUp = new Date().getTime();
         getCorrectCoords(evt);
+        if (selectedRPIndex == -1 ) {return;}
         if (dragged) {
             if (mode == "bbox" && !rightClick) {
                 currentBbox.data.push([correctX, correctY]);
@@ -451,6 +452,7 @@ function reposition() {
 }
 
 function updateAnnotation() {
+    if (selectedRPIndex == -1 ) {return;}
     switch (mode) {
         case "dot": // dot mode
             annotations.push({
@@ -485,8 +487,26 @@ function clearAnnotations() {
 }
 
 function getClass() {
+    
     return classes[selectedRPIndex];
     // return $('#rp_container .rp_button')[selectedRPIndex].innerHTML;
+}
+
+function checkClass() {
+    if (selectedRPIndex == -1 ) {
+        // * a warning of no RP class
+        let message = `Please click the "Add an RP" button first!`;
+        // $("div#body-part").prepend(`
+        //     <div class="alert alert-danger alert-dismissible" id="incorrect">
+        //     <strong>Warning!</strong> ${message}
+        //         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        //             <span aria-hidden="true">&times;</span>
+        //         </button>
+        //     </div>
+        //     `);
+        return false;
+    }
+    return true;
 }
 
 function getColor(annotation, options) {
@@ -571,6 +591,7 @@ function drawBbox(annotation, options) {
 }
 
 function updateGraphics() {
+    if (selectedRPIndex == -1 ) {return;}
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
 
